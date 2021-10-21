@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-medium"
-        android:paddingTop="40dp"
+        android:paddingTop="20dp"
         android:paddingBottom="20dp"
         android:text="@string/sopthub_title"
         android:textColor="@color/black"
@@ -23,8 +23,9 @@
 
     <ImageView
         android:id="@+id/img_home_profile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="20dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toTopOf="@id/cl_home_info"
         app:layout_constraintEnd_toEndOf="@id/tv_home_title"
@@ -34,10 +35,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_home_info"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:paddingHorizontal="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/frg_home_rcv"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/img_home_profile">
 
@@ -80,10 +82,40 @@
             android:layout_height="wrap_content"
             android:text="@string/home_intro"
             android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@id/btn_home_follower"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_home_mbti" />
 
+        <Button
+            android:id="@+id/btn_home_follower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_btn_follower"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btn_home_repo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_home_intro" />
+
+        <Button
+            android:id="@+id/btn_home_repo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/home_btn_repo"
+            app:layout_constraintBottom_toBottomOf="@id/btn_home_follower"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_home_follower"
+            app:layout_constraintTop_toTopOf="@id/btn_home_follower" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/frg_home_rcv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cl_home_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
