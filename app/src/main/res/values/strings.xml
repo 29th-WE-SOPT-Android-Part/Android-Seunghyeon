@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SoptAndroidSeminar</string>
+    <string name="sopthub_title">SOPTHub</string>
+    <string name="signin_id">아이디</string>
+    <string name="signin_hint_id">아이디를 입력해주세요</string>
+    <string name="signin_pw">비밀번호</string>
+    <string name="signin_hint_pw">비밀번호를 입력해주세요</string>
+    <string name="signin_login">로그인</string>
+    <string name="signup_ok">회원가입</string>
+    <string name="signup_name">이름</string>
+    <string name="signup_hint_id">이름을 입력해주세요</string>
+    <string name="signup">회원가입</string>
+    <string name="home_name">한승현</string>
+    <string name="home_age">24</string>
+    <string name="home_mbti">ENTP</string>
+    <string name="home_intro">안녕하세요 한승현입니다.</string>
+</resources>
