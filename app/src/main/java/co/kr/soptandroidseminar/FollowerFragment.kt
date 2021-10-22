@@ -62,8 +62,17 @@ class FollowerFragment : Fragment() {
                     val fromPos = viewHolder.adapterPosition
                     val toPos = target.adapterPosition
                     val temp = adapter.itemList[fromPos]
-                    adapter.itemList[fromPos] = adapter.itemList[toPos]
-                    adapter.itemList[toPos] = temp
+                    if(fromPos < toPos) {
+                        for(i in fromPos until toPos) {
+                            adapter.itemList[i] = adapter.itemList[i+1]
+                        }
+                        adapter.itemList[toPos] = temp
+                    } else if(fromPos > toPos) {
+                        for(i in toPos+1..fromPos) {
+                            adapter.itemList[i] = adapter.itemList[i-1]
+                        }
+                        adapter.itemList[toPos] = temp
+                    }
                     adapter.notifyItemMoved(fromPos, toPos)
 
                     return true
