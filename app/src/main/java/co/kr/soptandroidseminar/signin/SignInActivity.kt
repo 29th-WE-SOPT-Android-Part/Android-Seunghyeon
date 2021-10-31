@@ -4,8 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import co.kr.soptandroidseminar.HomeActivity
-import co.kr.soptandroidseminar.MainActivity.MainActivity
+import co.kr.soptandroidseminar.main.MainActivity
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.signup.SignUpActivity
 import co.kr.soptandroidseminar.databinding.ActivitySignInBinding

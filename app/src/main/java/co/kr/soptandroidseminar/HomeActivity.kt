@@ -3,6 +3,8 @@ package co.kr.soptandroidseminar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import co.kr.soptandroidseminar.databinding.ActivityHomeBinding
+import co.kr.soptandroidseminar.profile.FollowerFragment
+import co.kr.soptandroidseminar.profile.RepoFragment
 
 class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding

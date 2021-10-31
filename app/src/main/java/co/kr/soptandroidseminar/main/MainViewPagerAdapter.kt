@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.MainActivity
+package co.kr.soptandroidseminar.main
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity

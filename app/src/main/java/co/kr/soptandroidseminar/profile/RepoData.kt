@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.profile
 
 data class RepoData(
     val name: String,

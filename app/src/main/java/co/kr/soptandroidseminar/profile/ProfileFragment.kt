@@ -1,14 +1,11 @@
 package co.kr.soptandroidseminar.profile
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import co.kr.soptandroidseminar.FollowerFragment
 import co.kr.soptandroidseminar.R
-import co.kr.soptandroidseminar.RepoFragment
 import co.kr.soptandroidseminar.databinding.FragmentProfileBinding
 import com.bumptech.glide.Glide
 
@@ -48,6 +45,8 @@ class ProfileFragment : Fragment() {
         childFragmentManager.beginTransaction()
             .add(R.id.fcv_list, followerFragment)
             .commit()
+        binding.btnListFollower.isSelected = true
+        binding.btnListRepo.isSelected = false
 
         binding.btnListFollower.setOnClickListener {
             if(position == REPO_FRAGMENT) {

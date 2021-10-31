@@ -1,5 +1,6 @@
-package co.kr.soptandroidseminar.MainActivity
+package co.kr.soptandroidseminar.main
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
@@ -8,7 +9,6 @@ import co.kr.soptandroidseminar.camera.CameraFragment
 import co.kr.soptandroidseminar.databinding.ActivityMainBinding
 import co.kr.soptandroidseminar.home.HomeFragment
 import co.kr.soptandroidseminar.profile.ProfileFragment
-import java.sql.RowIdLifetime
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

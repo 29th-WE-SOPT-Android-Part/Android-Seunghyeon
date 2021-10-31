@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.profile
 
 import android.graphics.Color
 import android.os.Bundle
@@ -25,11 +25,10 @@ class RepoFragment : Fragment() {
         if (adapter.itemList.isEmpty()) {
             adapter.itemList.addAll(
                 listOf(
-                    RepoData("레포1", "레포1입니다."),
-                    RepoData("레포2", "레포2입니다."),
-                    RepoData("레포3", "레포3입니다."),
-                    RepoData("레포4", "레포4입니다."),
-                    RepoData("레포5", "레포5입니다."),
+                    RepoData("Team Charo Android", "차로 안드로이드"),
+                    RepoData("SOPT 29th Android", "SOPT 29기 안드로이드 세미나 과제"),
+                    RepoData("SOPT 28th Android", "SOPT 28기 안드로이드 세미나 과제"),
+                    RepoData("Algorithm", "한승현의 백준 플레티넘 도전기"),
                 )
             )
         }

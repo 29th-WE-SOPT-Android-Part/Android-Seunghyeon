@@ -23,4 +23,8 @@
     <string name="following">팔로잉</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_preparing">준비중입니다</string>
+    <string name="text_github">GitHub</string>
+    <string name="btn_camera">첨부하기</string>
+    <string name="tv_camera">사진을 첨부해주세요</string>
 </resources>

@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.profile
 
 import android.graphics.Canvas
 import android.graphics.Paint

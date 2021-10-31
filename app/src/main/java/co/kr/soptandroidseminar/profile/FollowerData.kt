@@ -1,7 +1,7 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.profile
 
 data class FollowerData(
-    val image: Int,
+    val image: String,
     val name: String,
     val info: String,
     val detailInfo: String,

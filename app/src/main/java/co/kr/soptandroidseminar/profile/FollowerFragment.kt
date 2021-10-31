@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.profile
 
 import android.content.Intent
 import android.graphics.Color
@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import co.kr.soptandroidseminar.DetailActivity
+import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.databinding.FragmentFollowerBinding
 
 class FollowerFragment : Fragment() {
@@ -35,11 +37,14 @@ class FollowerFragment : Fragment() {
         if (adapter.itemList.isEmpty()) {
             adapter.itemList.addAll(
                 listOf(
-                    FollowerData(R.mipmap.ic_launcher, "사람1", "사람1입니다.", "사람1 설명 어쩌구저쩌구"),
-                    FollowerData(R.mipmap.ic_launcher, "사람2", "사람2입니다.", "사람2 설명 어쩌구저쩌구"),
-                    FollowerData(R.mipmap.ic_launcher, "사람3", "사람3입니다.", "사람3 설명 어쩌구저쩌구"),
-                    FollowerData(R.mipmap.ic_launcher, "사람4", "사람4입니다.", "사람4 설명 어쩌구저쩌구"),
-                    FollowerData(R.mipmap.ic_launcher, "사람5", "사람5입니다.", "사람5 설명 어쩌구저쩌구"),
+                    FollowerData("https://avatars.githubusercontent.com/u/53166299?v=4", "한진희", "차로 Android Developer", "차로 Android 리드"),
+                    FollowerData("https://avatars.githubusercontent.com/u/71322949?v=4", "곽호택", "차로 Android Developer", "차로 마스코택"),
+                    FollowerData("https://avatars.githubusercontent.com/u/63635886?v=4", "오예원", "차로 Server Developer", "차로 서버 원맨쇼 주인공"),
+                    FollowerData("https://avatars.githubusercontent.com/u/59547116?v=4", "장혜령", "차로 iOS Developer", "차로 iOS 리드"),
+                    FollowerData("https://avatars.githubusercontent.com/u/73978827?v=4", "박익범", "차로 iOS Developer", "차로 iOS 공식잼민"),
+                    FollowerData("https://avatars.githubusercontent.com/u/70083982?v=4", "이지원", "차로 iOS Developer", "차로 낭만 차기 대권주자"),
+                    FollowerData("https://avatars.githubusercontent.com/u/46644241?v=4", "최인정", "차로 iOS Developer", "차로 vs 당근 어디야 ! 하나만 해 !"),
+                    FollowerData("https://avatars.githubusercontent.com/u/63224278?v=4", "황지은", "차로 iOS Developer", "차로 서버 -> iOS 이적 성사")
                 )
             )
         }

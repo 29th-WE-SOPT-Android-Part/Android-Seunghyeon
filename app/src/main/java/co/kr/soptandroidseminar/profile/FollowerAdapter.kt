@@ -1,9 +1,10 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.profile
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.kr.soptandroidseminar.databinding.ItemFollowerBinding
+import com.bumptech.glide.Glide
 
 class FollowerAdapter(val itemClick: (FollowerData) -> Unit) :
     RecyclerView.Adapter<FollowerAdapter.FollowerViewHolder>() {
@@ -15,7 +16,11 @@ class FollowerAdapter(val itemClick: (FollowerData) -> Unit) :
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun onBind(data: FollowerData) {
-            binding.imgFollowerProfile.setImageResource(data.image)
+            Glide.with(binding.imgFollowerProfile.context)
+                .load(data.image)
+                .circleCrop()
+                .into(binding.imgFollowerProfile)
+
             binding.tvFollowerName.text = data.name
             binding.tvFollowerInfo.text = data.info
 

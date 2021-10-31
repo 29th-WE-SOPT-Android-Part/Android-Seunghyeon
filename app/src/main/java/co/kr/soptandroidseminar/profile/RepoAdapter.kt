@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.profile
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
