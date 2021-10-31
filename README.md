@@ -359,7 +359,7 @@
 * **보일러 플레이트 코드 개선**
   * 보일러 플레이트 코드
     * 최소한의 변경으로 여러 곳에서 재사용되며, 반복적으로 비슷한 형태를 띄는 코드
-    * **그러게요 어떻게 개선할까요 ... ? 🥴**
+    * BaseActivity, BaseFragment를 사용
 
 * **보다 효율적으로 RecyclerView의 아이템을 갱신하기**
   * notifyDataSetChanged
