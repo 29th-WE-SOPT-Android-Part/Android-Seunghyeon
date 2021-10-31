@@ -4,18 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignInActivity">
+    android:paddingHorizontal="20dp"
+    android:paddingTop="66dp"
+    android:paddingBottom="41dp"
+    tools:context=".signin.SignInActivity">
 
-    <TextView
-        android:id="@+id/tv_signin_title"
+    <ImageView
+        android:id="@+id/img_signin_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-medium"
-        android:paddingVertical="40dp"
-        android:text="@string/sopthub_title"
-        android:textColor="@color/black"
-        android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@id/cl_signup_id"
+        android:layout_marginBottom="40dp"
+        android:src="@drawable/img_github"
+        app:layout_constraintBottom_toTopOf="@id/cl_signin_id"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,19 +24,23 @@
         android:id="@+id/cl_signin_id"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="40dp"
-        android:paddingTop="40dp"
         app:layout_constraintBottom_toTopOf="@id/cl_signin_pw"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_signin_title">
+        app:layout_constraintTop_toBottomOf="@id/img_signin_logo">
 
         <TextView
             android:id="@+id/tv_signin_id"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/notosanskr_bold"
+            android:includeFontPadding="false"
             android:text="@string/signin_id"
+            android:textColor="@color/textview_title"
+            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/et_signin_id"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,10 +48,16 @@
             android:id="@+id/et_signin_id"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="@string/signin_hint_id"
-            android:maxLines="1"
+            android:background="@drawable/selector_textbox"
             android:ellipsize="end"
+            android:fontFamily="@font/notosanskr_regular"
+            android:hint="@string/signin_hint_id"
+            android:includeFontPadding="false"
             android:inputType="text"
+            android:maxLines="1"
+            android:textColor="@color/textview_title"
+            android:textColorHint="@color/edittext_hint"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -59,18 +69,23 @@
         android:id="@+id/cl_signin_pw"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="40dp"
-        android:paddingTop="40dp"
+        android:layout_marginTop="34dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cl_signin_id">
 
         <TextView
             android:id="@+id/tv_signin_pw"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="6dp"
+            android:fontFamily="@font/notosanskr_bold"
+            android:includeFontPadding="false"
             android:text="@string/signin_pw"
+            android:textColor="@color/textview_title"
+            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/et_signin_pw"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -78,10 +93,16 @@
             android:id="@+id/et_signin_pw"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/selector_textbox"
+            android:ellipsize="end"
+            android:fontFamily="@font/notosanskr_regular"
             android:hint="@string/signin_hint_pw"
+            android:includeFontPadding="false"
             android:inputType="textPassword"
             android:maxLines="1"
-            android:ellipsize="end"
+            android:textColor="@color/textview_title"
+            android:textColorHint="@color/edittext_hint"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -93,24 +114,44 @@
         android:id="@+id/btn_signin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/shape_button_sign"
+        android:fontFamily="@font/notosanskr_bold"
+        android:includeFontPadding="false"
         android:text="@string/signin_login"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@id/tv_signin_signup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:id="@+id/tv_signin_not_member"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/notosanskr_regular"
+        android:includeFontPadding="false"
+        android:text="@string/signin_not_member"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_signin_signup"
+        app:layout_constraintEnd_toStartOf="@id/tv_signin_signup"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="@+id/btn_signin" />
+
+    <TextView
         android:id="@+id/tv_signin_signup"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
         android:layout_marginVertical="40dp"
+        android:fontFamily="@font/notosanskr_bold"
+        android:includeFontPadding="false"
         android:text="@string/signup"
         android:textAlignment="center"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/btn_signin"
+        app:layout_constraintStart_toEndOf="@id/tv_signin_not_member" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

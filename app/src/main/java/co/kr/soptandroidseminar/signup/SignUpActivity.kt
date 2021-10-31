@@ -1,8 +1,7 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.signup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import co.kr.soptandroidseminar.databinding.ActivitySignUpBinding
 
