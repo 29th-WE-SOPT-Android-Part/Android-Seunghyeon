@@ -384,3 +384,13 @@
     * **ItemTouchHelper.SimpleCallback의 onMove에서 아이템 이동했을 때 사용함**
 </div>
 </details>
+  
+<details>
+<summary><b>3차 세미나 과제</b></summary>
+<div markdown="1"> 
+  <h4> 필수과제 </h4>
+
+* **GIF**
+<img src="https://user-images.githubusercontent.com/81508084/139590292-52ce818c-95bb-46ea-be6c-305e272b4235.gif" width="30%" height="30%"/>
+</div>
+</details>
