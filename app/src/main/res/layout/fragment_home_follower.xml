@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/empty_fragment"
+    tools:context=".home.HomeFollowerFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fontFamily="@font/notosanskr_medium"
+        android:gravity="center"
+        android:text="준비중입니다"
+        android:textColor="@color/textview_title"
+        android:textSize="21sp" />
+
+</FrameLayout>

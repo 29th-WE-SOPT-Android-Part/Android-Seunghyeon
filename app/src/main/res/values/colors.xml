@@ -8,4 +8,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="theme_green">#248074</color>
+
+    <color name="textbox_empty_body">#f2f2f2</color>
+    <color name="textbox_empty_border">#d0d0d0</color>
+    <color name="textbox_not_empty_body">#ffffff</color>
+    <color name="textbox_not_empty_border">#f658a6</color>
+    <color name="medium_pink">#f658a6</color>
+    <color name="edittext_hint">#acb5bd</color>
+    <color name="textview_title">#333333</color>
+    <color name="bubblegum">#fa79b0</color>
+    <color name="not_selected">#c9c9c9</color>
+    <color name="button_selected">#fab24c</color>
+    <color name="empty_fragment">#dfdfdf</color>
 </resources>
