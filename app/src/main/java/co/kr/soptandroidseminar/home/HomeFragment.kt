@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.databinding.FragmentHomeBinding
+import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
@@ -20,7 +21,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-
+        initTabLayout()
         initViewPager()
 
         return binding.root
@@ -31,6 +32,14 @@ class HomeFragment : Fragment() {
         viewPagerAdapter = HomeViewPagerAdapter(this)
         viewPagerAdapter.fragments.addAll(fragmentList)
         binding.vpHome.adapter = viewPagerAdapter
+    }
+
+    private fun initTabLayout() {
+        val tabLabel = listOf("팔로잉", "팔로워")
+
+        TabLayoutMediator(binding.tabHome, binding.vpHome) { tab, position ->
+            tab.text = tabLabel[position]
+        }.attach()
     }
 
     companion object {

@@ -41,24 +41,16 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.bnvMain.setOnItemSelectedListener {
-            when(it.itemId) {
-                R.id.menu_profile -> {
-                    binding.vpMain.currentItem = PROFILE_FRAGMENT
-                    return@setOnItemSelectedListener true
-                }
-                R.id.menu_home -> {
-                    binding.vpMain.currentItem = HOME_FRAGMENT
-                    return@setOnItemSelectedListener true
-                }
-                else -> {
-                    binding.vpMain.currentItem = CAMERA_FRAGMENT
-                    return@setOnItemSelectedListener true
-                }
+            binding.vpMain.currentItem = when(it.itemId) {
+                R.id.menu_profile -> PROFILE_FRAGMENT
+                R.id.menu_home -> HOME_FRAGMENT
+                else -> CAMERA_FRAGMENT
             }
+            return@setOnItemSelectedListener true
         }
     }
 
-    companion object {
+    private companion object {
         const val PROFILE_FRAGMENT = 0
         const val HOME_FRAGMENT = 1
         const val CAMERA_FRAGMENT = 2

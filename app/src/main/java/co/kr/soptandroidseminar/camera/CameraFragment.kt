@@ -21,35 +21,30 @@ class CameraFragment : Fragment() {
     private var _binding: FragmentCameraBinding? = null
     private val binding get() = _binding!!
 
-    private val activityLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if(it.resultCode == RESULT_OK && it.data != null) {
-                val imageUri = it.data?.data
-                try {
-                    Glide.with(this)
-                        .load(imageUri)
-                        .into(binding.imgCamera)
-                } catch (e: Exception) {
-                    Toast.makeText(requireContext(), "어라라?", Toast.LENGTH_SHORT).show()
-                    e.printStackTrace()
-                }
-            } else if(it.resultCode == RESULT_CANCELED) {
-                Toast.makeText(requireContext(), "사진 선택 취소", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "진짜 왜 와이 ?", Toast.LENGTH_SHORT).show()
-            }
-        }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCameraBinding.inflate(layoutInflater, container, false)
-
         btnClickEvent()
-
         return binding.root
     }
+
+    private val activityLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if(it.resultCode == RESULT_OK && it.data != null) {
+                val imageUri = it.data?.data
+                runCatching {
+                    Glide.with(this)
+                        .load(imageUri)
+                        .into(binding.imgCamera)
+                }.onFailure {
+                    makeToast("사진 첨부 실패")
+                }
+            } else if(it.resultCode == RESULT_CANCELED) {
+                makeToast("사진 선택 취소")
+            }
+        }
 
     private fun btnClickEvent() {
         binding.btnCamera.setOnClickListener {
@@ -63,8 +58,7 @@ class CameraFragment : Fragment() {
         activityLauncher.launch(intent)
     }
 
-    companion object {
-        const val PERM_STORAGE = 9
-        const val REQ_GALLERY = 12
+    private fun makeToast(text: String) {
+        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
     }
 }
