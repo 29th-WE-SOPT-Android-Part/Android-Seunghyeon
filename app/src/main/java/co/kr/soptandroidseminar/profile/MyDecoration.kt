@@ -37,7 +37,7 @@ class MyDecoration(
     ) {
         super.getItemOffsets(outRect, view, parent, state)
         outRect.bottom += padding.toInt()
-        outRect.top += padding.toInt()
+        outRect.top += 0
         outRect.left += padding.toInt()
         outRect.right += padding.toInt()
     }

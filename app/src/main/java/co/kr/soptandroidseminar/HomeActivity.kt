@@ -18,8 +18,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun initTransaction() {
-        val followerFragment = FollowerFragment()
-        val repoFragment = RepoFragment()
+        val followerFragment = FollowerFragment("hansh0101")
+        val repoFragment = RepoFragment("hansh0101")
 
         supportFragmentManager.beginTransaction().add(R.id.frg_home_rcv, followerFragment).commit()
 

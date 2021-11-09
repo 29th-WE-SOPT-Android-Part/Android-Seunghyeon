@@ -39,7 +39,7 @@ class SignInActivity : AppCompatActivity() {
                 binding.etSigninPw.text.toString()
             )
 
-            val call: Call<ResponseSignInData> = ApiService.service.postSingIn(requestSignInData)
+            val call: Call<ResponseSignInData> = ApiService.seminarService.postSingIn(requestSignInData)
 
             call.enqueue(object: Callback<ResponseSignInData> {
                 override fun onResponse(
@@ -50,6 +50,8 @@ class SignInActivity : AppCompatActivity() {
                         val data = response.body()?.data
                         Toast.makeText(this@SignInActivity, "안녕하세요 ${data?.name}!", Toast.LENGTH_SHORT).show()
                         val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                        intent.putExtra("name", data?.name)
+                        intent.putExtra("email", data?.email)
                         startActivity(intent)
                     } else {
                         Log.d("server connect : SignIn", "error")
@@ -57,6 +59,10 @@ class SignInActivity : AppCompatActivity() {
                         Log.d("server connect : SignIn", response.message())
                         Log.d("server connect : SignIn", "${response.code()}")
                         Toast.makeText(this@SignInActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                        intent.putExtra("name", "hansh0101")
+                        intent.putExtra("email", binding.etSigninId.text.toString())
+                        startActivity(intent)
                     }
                 }
 

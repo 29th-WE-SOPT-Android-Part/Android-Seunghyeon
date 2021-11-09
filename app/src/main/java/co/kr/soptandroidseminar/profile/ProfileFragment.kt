@@ -1,15 +1,20 @@
 package co.kr.soptandroidseminar.profile
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import co.kr.soptandroidseminar.R
+import co.kr.soptandroidseminar.api.ApiService
 import co.kr.soptandroidseminar.databinding.FragmentProfileBinding
 import com.bumptech.glide.Glide
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class ProfileFragment : Fragment() {
+class ProfileFragment(private val username: String) : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
 
@@ -18,9 +23,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
-
-        initTransaction()
-        initProfilePicture()
+        getServerData()
 
         return binding.root
     }
@@ -30,16 +33,45 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun initProfilePicture() {
+    private fun getServerData() {
+        val call: Call<ResponseUserInfoData> = ApiService.githubService.getUserInfo(username)
+
+        call.enqueue(object : Callback<ResponseUserInfoData> {
+            override fun onResponse(
+                call: Call<ResponseUserInfoData>,
+                response: Response<ResponseUserInfoData>
+            ) {
+                if (response.isSuccessful) {
+                    val data = response.body()
+                    data?.avatar_url?.let { initProfilePicture(it) }
+                    binding.tvProfileName.text = data?.name
+                    binding.tvProfileId.text = data?.login
+                    data?.bio?.let { binding.tvProfileIntro.text = it }
+                    initTransaction()
+                } else {
+                    Log.d("server connect : Profile Fragment", "error")
+                    Log.d("server connect : Profile Fragment", "$response.errorBody()")
+                    Log.d("server connect : Profile Fragment", response.message())
+                    Log.d("server connect : Profile Fragment", "${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseUserInfoData>, t: Throwable) {
+                Log.d("server connect : Profile Fragment", "error: ${t.message}")
+            }
+        })
+    }
+
+    private fun initProfilePicture(imgUrl: String) {
         Glide.with(requireContext())
-            .load("https://avatars.githubusercontent.com/u/81508084?v=4")
+            .load(imgUrl)
             .circleCrop()
             .into(binding.imgProfilePicture)
     }
 
     private fun initTransaction() {
-        val followerFragment = FollowerFragment()
-        val repoFragment = RepoFragment()
+        val followerFragment = FollowerFragment(username)
+        val repoFragment = RepoFragment(username)
         var position = FOLLOWER_FRAGMENT
 
         childFragmentManager.beginTransaction()
@@ -49,7 +81,7 @@ class ProfileFragment : Fragment() {
         binding.btnListRepo.isSelected = false
 
         binding.btnListFollower.setOnClickListener {
-            if(position == REPO_FRAGMENT) {
+            if (position == REPO_FRAGMENT) {
                 childFragmentManager.beginTransaction()
                     .replace(R.id.fcv_list, followerFragment)
                     .commit()
@@ -61,7 +93,7 @@ class ProfileFragment : Fragment() {
         }
 
         binding.btnListRepo.setOnClickListener {
-            if(position == FOLLOWER_FRAGMENT) {
+            if (position == FOLLOWER_FRAGMENT) {
                 childFragmentManager.beginTransaction()
                     .replace(R.id.fcv_list, repoFragment)
                     .commit()

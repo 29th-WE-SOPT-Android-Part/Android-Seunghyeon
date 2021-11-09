@@ -22,7 +22,7 @@ class FollowerAdapter(val itemClick: (FollowerData) -> Unit) :
                 .into(binding.imgFollowerProfile)
 
             binding.tvFollowerName.text = data.name
-            binding.tvFollowerInfo.text = data.info
+            binding.tvFollowerUsername.text = data.info
 
             binding.root.setOnClickListener {
                 itemClick(data)

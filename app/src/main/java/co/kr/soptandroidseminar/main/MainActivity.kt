@@ -13,7 +13,9 @@ import co.kr.soptandroidseminar.profile.ProfileFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewPagerAdapter: MainViewPagerAdapter
-    private val profileFragment: ProfileFragment by lazy { ProfileFragment() }
+    private lateinit var username: String
+    private lateinit var email: String
+    private val profileFragment: ProfileFragment by lazy { ProfileFragment(username) }
     private val homeFragment: HomeFragment by lazy { HomeFragment() }
     private val cameraFragment: CameraFragment by lazy { CameraFragment() }
 
@@ -21,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        username = intent.getStringExtra("name")!!
+        email = intent.getStringExtra("email")!!
 
         initViewPagerAdapter()
         initBottomNavigation()

@@ -23,15 +23,17 @@
         android:fontFamily="@font/notosanskr_bold"
         android:includeFontPadding="false"
         android:textColor="@color/textview_title"
+        android:maxLines="1"
+        android:ellipsize="end"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/tv_follower_info"
+        app:layout_constraintBottom_toTopOf="@id/tv_follower_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/img_follower_profile"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="name" />
 
     <TextView
-        android:id="@+id/tv_follower_info"
+        android:id="@+id/tv_follower_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"

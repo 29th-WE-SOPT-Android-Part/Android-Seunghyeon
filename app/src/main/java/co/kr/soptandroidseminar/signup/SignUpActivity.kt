@@ -30,7 +30,7 @@ class SignUpActivity : AppCompatActivity() {
                 binding.etSignupPw.text.toString()
             )
 
-            val call: Call<ResponseSignUpData> = ApiService.service.postSignUp(requestSignUpData)
+            val call: Call<ResponseSignUpData> = ApiService.seminarService.postSignUp(requestSignUpData)
 
             call.enqueue(object: Callback<ResponseSignUpData> {
                 override fun onResponse(
