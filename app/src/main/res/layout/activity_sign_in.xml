@@ -7,7 +7,7 @@
     android:paddingHorizontal="20dp"
     android:paddingTop="66dp"
     android:paddingBottom="41dp"
-    tools:context=".signin.SignInActivity">
+    tools:context=".view.signin.SignInActivity">
 
     <ImageView
         android:id="@+id/img_signin_logo"

@@ -15,7 +15,7 @@
         android:theme="@style/Theme.SoptAndroidSeminar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".main.MainActivity"
+            android:name="co.kr.soptandroidseminar.view.main.MainActivity"
             android:exported="true" />
         <activity
             android:name=".DetailActivity"
@@ -24,10 +24,10 @@
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".signup.SignUpActivity"
+            android:name="co.kr.soptandroidseminar.view.signup.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".signin.SignInActivity"
+            android:name="co.kr.soptandroidseminar.view.signin.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
