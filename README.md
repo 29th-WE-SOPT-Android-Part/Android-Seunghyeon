@@ -748,3 +748,408 @@
     ```
 </div>
 </details>
+
+<details>
+<summary><b>4차 세미나 과제</b></summary>
+<div markdown="1"> 
+    <h4> 필수과제 </h4>
+
+* **GIF**
+
+  <img src="https://user-images.githubusercontent.com/81508084/141174588-b604a63e-25cd-43de-91e8-04177bdbcf48.gif" width="30%" height="30%"/>
+
+
+* **로그인/회원가입 API 연동**
+
+
+  * SeminarService.kt
+
+    ```kotlin
+    interface SeminarService {
+        @POST("user/signup")
+        fun postSignUp(
+            @Body body: RequestSignUpData
+        ) : Call<ResponseSignUpData>
+    
+        @POST("user/login")
+        fun postSingIn(
+            @Body body: RequestSignInData
+        ) : Call<ResponseSignInData>
+    }
+    ```
+
+  * RequestSignInData.kt
+
+    ```kotlin
+    data class RequestSignInData(
+        val email: String,
+        val password: String,
+    )
+    ```
+
+  * ResponseSignInData.kt
+
+    ```kotlin
+    data class ResponseSignInData(
+        val status: Int,
+        val success: Boolean,
+        val message: String,
+        val data: Data
+    )  {
+        data class Data(
+            val id: Int,
+            val name: String,
+            val email: String,
+        )
+    }
+    ```
+
+  * RequestSignUpData.kt
+
+    ```kotlin
+    data class RequestSignUpData(
+        val email: String,
+        val name: String,
+        val password: String,
+    )
+    ```
+
+  * ResponseSignUpData.kt
+
+    ```kotlin
+    data class ResponseSignUpData(
+        val status: Int,
+        val success: Boolean,
+        val message: String,
+        val data: Data
+    ) {
+        data class Data(
+            val id: Int,
+            val name: String,
+            val password: String,
+            val email: String,
+        )
+    }
+    ```
+
+
+  * SignUpActivity.kt
+
+    ```kotlin
+        private fun clickSignUp() {
+            if(!binding.etSignupName.text.isNullOrBlank() && !binding.etSignupId.text.isNullOrBlank() && !binding.etSignupPw.text.isNullOrBlank()) {
+                val requestSignUpData = RequestSignUpData(
+                    binding.etSignupId.text.toString(),
+                    binding.etSignupName.text.toString(),
+                    binding.etSignupPw.text.toString()
+                )
+    
+                val call: Call<ResponseSignUpData> = ApiService.seminarService.postSignUp(requestSignUpData)
+    
+                call.enqueue(object: Callback<ResponseSignUpData> {
+                    override fun onResponse(
+                        call: Call<ResponseSignUpData>,
+                        response: Response<ResponseSignUpData>
+                    ) {
+                        if(response.isSuccessful) {
+                            val data = response.body()
+                            Toast.makeText(this@SignUpActivity, data?.message, Toast.LENGTH_SHORT).show()
+                        } else {
+                            Log.d("server connect : SignUp", "error")
+                            Log.d("server connect : SignUp", "$response.errorBody()")
+                            Log.d("server connect : SignUp", response.message())
+                            Log.d("server connect : SignUp", "${response.code()}")
+                            Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+    
+                    override fun onFailure(call: Call<ResponseSignUpData>, t: Throwable) {
+                        Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    }
+                })
+    
+                finish()
+            } else {
+                Toast.makeText(this, "이름/ID/PW를 확인해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+    ```
+
+  * SignInActivity.kt
+
+    ```kotlin
+        private fun clickLogin() {
+            if(!binding.etSigninId.text.isNullOrBlank() && !binding.etSigninPw.text.isNullOrBlank()) {
+                val requestSignInData = RequestSignInData(
+                    binding.etSigninId.text.toString(),
+                    binding.etSigninPw.text.toString()
+                )
+    
+                val call: Call<ResponseSignInData> = ApiService.seminarService.postSingIn(requestSignInData)
+    
+                call.enqueue(object: Callback<ResponseSignInData> {
+                    override fun onResponse(
+                        call: Call<ResponseSignInData>,
+                        response: Response<ResponseSignInData>
+                    ) {
+                        if(response.isSuccessful) {
+                            val data = response.body()?.data
+                            Toast.makeText(this@SignInActivity, "안녕하세요 ${data?.name}!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                            intent.putExtra("name", data?.name)
+                            intent.putExtra("email", data?.email)
+                            startActivity(intent)
+                        } else {
+                            Log.d("server connect : SignIn", "error")
+                            Log.d("server connect : SignIn", "$response.errorBody()")
+                            Log.d("server connect : SignIn", response.message())
+                            Log.d("server connect : SignIn", "${response.code()}")
+                            Toast.makeText(this@SignInActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                            intent.putExtra("name", "hansh0101")
+                            intent.putExtra("email", binding.etSigninId.text.toString())
+                            startActivity(intent)
+                        }
+                    }
+    
+                    override fun onFailure(call: Call<ResponseSignInData>, t: Throwable) {
+                        Toast.makeText(this@SignInActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            } else {
+                Toast.makeText(this, "ID/PW를 확인해주세요!", Toast.LENGTH_SHORT).show()
+            }
+        }
+    ```
+
+  <h4> 도전과제 </h4>
+
+* **Github API 연동해서 리스트로 띄우기**
+
+  * 유저 프로필, 팔로워 리스트, 레포지토리 리스트 불러오기
+
+    * GithubService.kt
+
+      ```kotlin
+      interface GithubService {
+          @GET("/users/{username}")
+          fun getUserInfo(
+              @Path("username") username: String
+          ): Call<ResponseUserInfoData>
+      
+          @GET("/users/{username}/followers")
+          fun getFollowerList(
+              @Path("username") username: String
+          ): Call<List<ResponseFollowerData>>
+      
+          @GET("/users/{username}/repos")
+          fun getRepoList(
+              @Path("username") username: String
+          ): Call<List<ResponseRepoData>>
+      }
+      ```
+
+    * ResponseUserInfoData.kt
+
+      ```kotlin
+      data class ResponseUserInfoData(
+          val avatar_url: String,
+          val bio: String?,
+          val login: String,
+          val name: String,
+      )
+      ```
+
+    * ResponseFollowerData.kt
+
+      ```kotlin
+      data class ResponseFollowerData(
+          val login: String,
+      )
+      ```
+
+    * ResponseRepoData.kt
+
+      ```kotlin
+      data class ResponseRepoData(
+          val name: String,
+          val description: String,
+      )
+      ```
+
+    * ProfileFragment.kt
+
+      ```kotlin
+          private fun getServerData() {
+              val call: Call<ResponseUserInfoData> = ApiService.githubService.getUserInfo(username)
+      
+              call.enqueue(object : Callback<ResponseUserInfoData> {
+                  override fun onResponse(
+                      call: Call<ResponseUserInfoData>,
+                      response: Response<ResponseUserInfoData>
+                  ) {
+                      if (response.isSuccessful) {
+                          val data = response.body()
+                          data?.avatar_url?.let { initProfilePicture(it) }
+                          binding.tvProfileName.text = data?.name
+                          binding.tvProfileId.text = data?.login
+                          data?.bio?.let { binding.tvProfileIntro.text = it }
+                          initTransaction()
+                      } else {
+                          Log.d("server connect : Profile Fragment", "error")
+                          Log.d("server connect : Profile Fragment", "$response.errorBody()")
+                          Log.d("server connect : Profile Fragment", response.message())
+                          Log.d("server connect : Profile Fragment", "${response.code()}")
+                      }
+                  }
+      
+                  override fun onFailure(call: Call<ResponseUserInfoData>, t: Throwable) {
+                      Log.d("server connect : Profile Fragment", "error: ${t.message}")
+                  }
+              })
+          }
+      ```
+
+    * FollowerFragment.kt
+
+      ```kotlin
+          private fun getFollowerList() {
+              val call: Call<List<ResponseFollowerData>> =
+                  ApiService.githubService.getFollowerList(username)
+      
+              call.enqueue(object : Callback<List<ResponseFollowerData>> {
+                  override fun onResponse(
+                      call: Call<List<ResponseFollowerData>>,
+                      response: Response<List<ResponseFollowerData>>
+                  ) {
+                      if (response.isSuccessful) {
+                          val data = response.body()
+                          if (data != null) {
+                              getFollowerInfo(data)
+                          }
+                      } else {
+                          Log.d("server connect : Follower Fragment", "error")
+                          Log.d("server connect : Follower Fragment", "$response.errorBody()")
+                          Log.d("server connect : Follower Fragment", response.message())
+                          Log.d("server connect : Follower Fragment", "${response.code()}")
+                      }
+                  }
+      
+                  override fun onFailure(call: Call<List<ResponseFollowerData>>, t: Throwable) {
+                      Log.d("server connect : Follower Fragment", "error: ${t.message}")
+                  }
+              })
+          }
+      ```
+
+      ```kotlin
+          private fun getFollowerInfo(list: List<ResponseFollowerData>) {
+              list.forEach {
+                  val call: Call<ResponseUserInfoData> = ApiService.githubService.getUserInfo(it.login)
+      
+                  call.enqueue(object : Callback<ResponseUserInfoData> {
+                      override fun onResponse(
+                          call: Call<ResponseUserInfoData>,
+                          response: Response<ResponseUserInfoData>
+                      ) {
+                          if (response.isSuccessful) {
+                              val data = response.body()
+                              adapter.itemList.add(
+                                  FollowerData(
+                                      data?.avatar_url,
+                                      data?.login,
+                                      data?.name,
+                                      data?.bio
+                                  )
+                              )
+                              adapter.notifyItemInserted(adapter.itemList.size - 1)
+                              Log.d("server connect : Follower Fragment", "success")
+                              Log.d("server connect : Follower Fragment", it.login)
+                          } else {
+                              Log.d("server connect : Follower Fragment", "error")
+                              Log.d("server connect : Follower Fragment", "$response.errorBody()")
+                              Log.d("server connect : Follower Fragment", response.message())
+                              Log.d("server connect : Follower Fragment", "${response.code()}")
+                          }
+                      }
+      
+                      override fun onFailure(call: Call<ResponseUserInfoData>, t: Throwable) {
+                          Log.d("server connect: FollowerFragment", "error: ${t.message}")
+                      }
+                  })
+              }
+              initRecyclerView()
+          }
+      ```
+
+    * RepoFragment.kt
+
+      ```kotlin
+          private fun getRepoList() {
+              val call: Call<List<ResponseRepoData>> = ApiService.githubService.getRepoList(username)
+      
+              call.enqueue(object : Callback<List<ResponseRepoData>> {
+                  override fun onResponse(
+                      call: Call<List<ResponseRepoData>>,
+                      response: Response<List<ResponseRepoData>>
+                  ) {
+                      if (response.isSuccessful) {
+                          val data = response.body()
+                          data?.forEach {
+                              adapter.itemList.add(
+                                  RepoData(
+                                      it.name,
+                                      it.description
+                                  )
+                              )
+                              adapter.notifyItemInserted(adapter.itemList.size - 1)
+                          }
+                      } else {
+                          Log.d("server connect : Repo Fragment", "error")
+                          Log.d("server connect : Repo Fragment", "$response.errorBody()")
+                          Log.d("server connect : Repo Fragment", response.message())
+                          Log.d("server connect : Repo Fragment", "${response.code()}")
+                      }
+                  }
+      
+                  override fun onFailure(call: Call<List<ResponseRepoData>>, t: Throwable) {
+                      Log.d("server connect : Repo Fragment", "error: ${t.message}")
+                  }
+              })
+          }
+      ```
+
+* **OkHttp 활용해보기**
+
+  * ApiService.kt
+
+    ```kotlin
+        private val soptRetrofit: Retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL_SOPT)
+            .client(provideSoptOkHttpClient(SoptInterceptor()))
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            
+        private fun provideSoptOkHttpClient(
+            interceptor: SoptInterceptor
+        ): OkHttpClient =
+            OkHttpClient.Builder()
+                .run {
+                    addInterceptor(interceptor)
+                    build()
+                }
+    
+        class SoptInterceptor : Interceptor {
+            @Throws(IOException::class)
+            override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
+                val newRequest =
+                    request().newBuilder()
+                        .addHeader("Content-Type", "application/json")
+                        .build()
+    
+                proceed(newRequest)
+            }
+        }
+    ```
+</div>
+</details>
