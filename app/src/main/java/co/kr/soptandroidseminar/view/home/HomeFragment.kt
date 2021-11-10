@@ -21,8 +21,8 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        initTabLayout()
         initViewPager()
+        initTabLayout()
 
         return binding.root
     }
