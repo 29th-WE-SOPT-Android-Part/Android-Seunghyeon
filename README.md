@@ -391,6 +391,360 @@
   <h4> 필수과제 </h4>
 
 * **GIF**
-<img src="https://user-images.githubusercontent.com/81508084/139590292-52ce818c-95bb-46ea-be6c-305e272b4235.gif" width="30%" height="30%"/>
+  
+  <img src="https://user-images.githubusercontent.com/81508084/141163971-5377cac6-6d6c-4652-9884-693717d27689.gif" width="30%" height="30%"/>
+
+
+* **과제에 디자인 적용하기**
+
+
+  * **로그인 화면 / 회원가입 화면**
+
+
+    * EditText에 selector 활용하기(focus 되었을 때, 안 되었을 때)
+
+
+      * selector_textbox
+
+        ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:drawable="@drawable/shape_textbox_not_empty" android:state_focused="true" />
+            <item android:drawable="@drawable/shape_textbox_empty" android:state_focused="false" />
+        </selector>
+        ```
+
+    * 간단한 도형들은 ShapeDrawable로 직접 만들기
+
+
+      * shape_textbox_not_empty.xml
+
+        ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:drawable="@drawable/shape_textbox_not_empty" android:state_focused="true" />
+            <item android:drawable="@drawable/shape_textbox_empty" android:state_focused="false" />
+        </selector>
+        ```
+
+      * shape_textbox_empty.xml
+
+        ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle">
+            <solid android:color="@color/textbox_empty_body" />
+            <stroke
+                android:width="1dp"
+                android:color="@color/textbox_empty_border" />
+            <padding
+                android:bottom="13dp"
+                android:left="16dp"
+                android:right="16dp"
+                android:top="13dp" />
+            <corners android:radius="5dp" />
+        </shape>
+        ```
+
+      * shape_button_sign.xml
+
+        ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle">
+            <solid android:color="@color/medium_pink" />
+            <corners android:radius="5dp" />
+            <padding
+                android:bottom="12dp"
+                android:top="12dp" />
+        </shape>
+        ```
+
+  * **ProfileFragment**
+
+
+    * Button에 selector 활용하기(선택되었을 때, 안 되었을 때)
+
+
+      * selector_button.xml
+
+        ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <selector xmlns:android="http://schemas.android.com/apk/res/android">
+            <item android:state_selected="true" android:drawable="@drawable/shape_selected_button"/>
+            <item android:state_selected="false" android:drawable="@drawable/shape_unselected_button"/>
+        </selector>
+        ```
+
+      * shape_selected_button.xml
+
+        ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle">
+            <solid android:color="@color/button_selected" />
+            <corners android:radius="5dp" />
+        </shape>
+        ```
+
+      * shape_unselected_button.xml
+
+        ```xml
+        <?xml version="1.0" encoding="utf-8"?>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="rectangle">
+            <solid android:color="@color/textbox_empty_body" />
+            <corners android:radius="5dp" />
+        </shape>
+        ```
+
+    * 이미지의 경우 Glide의 CircleCrop 기능 활용해서 넣어주기
+
+
+      * ProfileFragment.kr
+
+        ```kotlin
+            private fun initProfilePicture() {
+                Glide.with(requireContext())
+                    .load("https://avatars.githubusercontent.com/u/81508084?v=4")
+                    .circleCrop()
+                    .into(binding.imgProfilePicture)
+            }
+        ```
+
+    * 하단에 BottomNavigation 넣어주기
+
+
+      * MainActivity.kt
+
+        ```kotlin
+            private fun initViewPagerAdapter() {
+                val fragmentList = listOf(profileFragment, homeFragment, cameraFragment)
+                viewPagerAdapter = MainViewPagerAdapter(this)
+                viewPagerAdapter.fragments.addAll(fragmentList)
+                binding.vpMain.adapter = viewPagerAdapter
+            }
+        
+            private fun initBottomNavigation() {
+                binding.vpMain.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
+                    override fun onPageSelected(position: Int) {
+                        binding.bnvMain.menu.getItem(position).isChecked = true
+                    }
+                })
+        
+                binding.bnvMain.setOnItemSelectedListener {
+                    binding.vpMain.currentItem = when(it.itemId) {
+                        R.id.menu_profile -> PROFILE_FRAGMENT
+                        R.id.menu_home -> HOME_FRAGMENT
+                        else -> CAMERA_FRAGMENT
+                    }
+                    return@setOnItemSelectedListener true
+                }
+            }
+        
+            private companion object {
+                const val PROFILE_FRAGMENT = 0
+                const val HOME_FRAGMENT = 1
+                const val CAMERA_FRAGMENT = 2
+            }
+        ```
+
+  * **HomeFragment**
+
+
+    * 3차 세미나에서 배웠던 TabLayout + ViewPager2 넣어주기
+
+
+      * HomeFragment.kt
+
+        ```kotlin
+            private fun initViewPager() {
+                val fragmentList = listOf(homeFollowingFragment, homeFollowerFragment)
+                viewPagerAdapter = HomeViewPagerAdapter(this)
+                viewPagerAdapter.fragments.addAll(fragmentList)
+                binding.vpHome.adapter = viewPagerAdapter
+            }
+        
+            private fun initTabLayout() {
+                val tabLabel = listOf("팔로잉", "팔로워")
+        
+                TabLayoutMediator(binding.tabHome, binding.vpHome) { tab, position ->
+                    tab.text = tabLabel[position]
+                }.attach()
+            }
+        ```
+
+  <h4> 도전과제 </h4>
+
+* **ViewPager2 중첩 스크롤 문제 해결하기**
+
+  * NestedScrollableHost로 내부 ViewPager2를 wrapping하여 처리함
+
+    * NestedScrollableHost.kt
+
+      ```kotlin
+      class NestedScrollableHost : FrameLayout {
+          constructor(context: Context) : super(context)
+          constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
+      
+          private var touchSlop = 0
+          private var initialX = 0f
+          private var initialY = 0f
+          private val parentViewPager: ViewPager2?
+              get() {
+                  var v: View? = parent as? View
+                  while (v != null && v !is ViewPager2) {
+                      v = v.parent as? View
+                  }
+                  return v as? ViewPager2
+              }
+      
+          private val child: View? get() = if (childCount > 0) getChildAt(0) else null
+      
+          init {
+              touchSlop = ViewConfiguration.get(context).scaledTouchSlop
+          }
+      
+          private fun canChildScroll(orientation: Int, delta: Float): Boolean {
+              val direction = -delta.sign.toInt()
+              return when (orientation) {
+                  0 -> child?.canScrollHorizontally(direction) ?: false
+                  1 -> child?.canScrollVertically(direction) ?: false
+                  else -> throw IllegalArgumentException()
+              }
+          }
+      
+          override fun onInterceptTouchEvent(e: MotionEvent): Boolean {
+              handleInterceptTouchEvent(e)
+              return super.onInterceptTouchEvent(e)
+          }
+      
+          private fun handleInterceptTouchEvent(e: MotionEvent) {
+              val orientation = parentViewPager?.orientation ?: return
+      
+              // Early return if child can't scroll in same direction as parent
+              if (!canChildScroll(orientation, -1f) && !canChildScroll(orientation, 1f)) {
+                  return
+              }
+      
+              if (e.action == MotionEvent.ACTION_DOWN) {
+                  initialX = e.x
+                  initialY = e.y
+                  parent.requestDisallowInterceptTouchEvent(true)
+              } else if (e.action == MotionEvent.ACTION_MOVE) {
+                  val dx = e.x - initialX
+                  val dy = e.y - initialY
+                  val isVpHorizontal = orientation == ORIENTATION_HORIZONTAL
+      
+                  // assuming ViewPager2 touch-slop is 2x touch-slop of child
+                  val scaledDx = dx.absoluteValue * if (isVpHorizontal) .5f else 1f
+                  val scaledDy = dy.absoluteValue * if (isVpHorizontal) 1f else .5f
+      
+                  if (scaledDx > touchSlop || scaledDy > touchSlop) {
+                      if (isVpHorizontal == (scaledDy > scaledDx)) {
+                          // Gesture is perpendicular, allow all parents to intercept
+                          parent.requestDisallowInterceptTouchEvent(false)
+                      } else {
+                          // Gesture is parallel, query child if movement in that direction is possible
+                          if (canChildScroll(orientation, if (isVpHorizontal) dx else dy)) {
+                              // Child can scroll, disallow all parents to intercept
+                              parent.requestDisallowInterceptTouchEvent(true)
+                          } else {
+                              // Child cannot scroll, allow all parents to intercept
+                              parent.requestDisallowInterceptTouchEvent(false)
+                          }
+                      }
+                  }
+              }
+          }
+      }
+      ```
+
+    * fragment_home.xml
+
+      ```xml
+          <co.kr.soptandroidseminar.home.NestedScrollableHost
+              android:id="@+id/nsh_home"
+              android:layout_width="match_parent"
+              android:layout_height="0dp"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintEnd_toEndOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@id/tab_home">
+      
+              <androidx.viewpager2.widget.ViewPager2
+                  android:id="@+id/vp_home"
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent" />
+      
+          </co.kr.soptandroidseminar.home.NestedScrollableHost>
+      ```
+
+* **리스트에 각기 다른 이미지 넣기**
+
+  * RecyclerView의 data class에 url을 저장할 변수 추가
+
+    * FollowerData.kt
+
+      ```kotlin
+      data class FollowerData(
+          val image: String,
+          val name: String,
+          val info: String,
+          val detailInfo: String,
+      )
+      ```
+
+    * FollowerAdapter.kt
+
+      ```kotlin
+      fun onBind(data: FollowerData) {
+                  Glide.with(binding.imgFollowerProfile.context)
+                      .load(data.image)
+                      .circleCrop()
+                      .into(binding.imgFollowerProfile)
+      
+                  binding.tvFollowerName.text = data.name
+                  binding.tvFollowerInfo.text = data.info
+      
+                  binding.root.setOnClickListener {
+                      itemClick(data)
+                  }
+              }
+      ```
+
+  <h4> 심화과제 </h4>
+
+* 갤러리에서 받아온 이미지(uri)를 Glide로 화면에 띄워보기
+
+  * 인텐트를 이용해 갤러리에 접근
+
+    ```kotlin
+        private fun openGallery() {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = MediaStore.Images.Media.CONTENT_TYPE
+            activityLauncher.launch(intent)
+        }
+    ```
+
+  * 사진데이터를 uri 형식으로 받아온 이후 Glide로 이미지뷰에 띄우기
+
+    ```kotlin
+        private val activityLauncher: ActivityResultLauncher<Intent> =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+                if(it.resultCode == RESULT_OK && it.data != null) {
+                    val imageUri = it.data?.data
+                    runCatching {
+                        Glide.with(this)
+                            .load(imageUri)
+                            .into(binding.imgCamera)
+                    }.onFailure {
+                        makeToast("사진 첨부 실패")
+                    }
+                } else if(it.resultCode == RESULT_CANCELED) {
+                    makeToast("사진 선택 취소")
+                }
+            }
+    ```
 </div>
 </details>
