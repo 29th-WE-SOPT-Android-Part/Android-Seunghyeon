@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.view.home
+package co.kr.soptandroidseminar.view.main.home
 
 import android.content.Context
 import android.util.AttributeSet

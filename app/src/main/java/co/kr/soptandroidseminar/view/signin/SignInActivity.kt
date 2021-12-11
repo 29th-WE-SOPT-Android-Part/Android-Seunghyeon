@@ -8,8 +8,8 @@ import android.widget.Toast
 import co.kr.soptandroidseminar.view.main.MainActivity
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.api.ApiService
-import co.kr.soptandroidseminar.data.RequestSignInData
-import co.kr.soptandroidseminar.data.ResponseSignInData
+import co.kr.soptandroidseminar.data.signin.RequestSignInData
+import co.kr.soptandroidseminar.data.signin.ResponseSignInData
 import co.kr.soptandroidseminar.view.signup.SignUpActivity
 import co.kr.soptandroidseminar.databinding.ActivitySignInBinding
 import retrofit2.Call

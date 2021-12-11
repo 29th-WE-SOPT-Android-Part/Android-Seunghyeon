@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.data
+package co.kr.soptandroidseminar.data.signup
 
 data class RequestSignUpData(
     val email: String,

@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import co.kr.soptandroidseminar.api.ApiService
-import co.kr.soptandroidseminar.data.RequestSignUpData
-import co.kr.soptandroidseminar.data.ResponseSignUpData
+import co.kr.soptandroidseminar.data.signup.RequestSignUpData
+import co.kr.soptandroidseminar.data.signup.ResponseSignUpData
 import co.kr.soptandroidseminar.databinding.ActivitySignUpBinding
 import retrofit2.Call
 import retrofit2.Callback

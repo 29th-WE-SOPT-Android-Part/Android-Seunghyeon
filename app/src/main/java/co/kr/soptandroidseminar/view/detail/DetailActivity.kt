@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar
+package co.kr.soptandroidseminar.view.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

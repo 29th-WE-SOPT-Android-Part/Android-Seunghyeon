@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.view.camera
+package co.kr.soptandroidseminar.view.main.camera
 
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK

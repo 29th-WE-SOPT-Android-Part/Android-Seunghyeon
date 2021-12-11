@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.data
+package co.kr.soptandroidseminar.data.main.profile
 
 data class ResponseRepoData(
     val name: String,

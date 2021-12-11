@@ -18,7 +18,7 @@
             android:name=".view.main.MainActivity"
             android:exported="true" />
         <activity
-            android:name=".DetailActivity"
+            android:name=".view.detail.DetailActivity"
             android:exported="true" />
         <activity
             android:name=".view.signup.SignUpActivity"

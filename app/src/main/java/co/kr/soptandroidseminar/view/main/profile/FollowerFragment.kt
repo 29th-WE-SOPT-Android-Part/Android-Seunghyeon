@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.view.profile
+package co.kr.soptandroidseminar.view.main.profile
 
 import android.content.Intent
 import android.graphics.Color
@@ -11,11 +11,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.kr.soptandroidseminar.DetailActivity
+import co.kr.soptandroidseminar.view.detail.DetailActivity
 import co.kr.soptandroidseminar.api.ApiService
-import co.kr.soptandroidseminar.data.FollowerData
-import co.kr.soptandroidseminar.data.ResponseFollowerData
-import co.kr.soptandroidseminar.data.ResponseUserInfoData
+import co.kr.soptandroidseminar.data.main.profile.FollowerData
+import co.kr.soptandroidseminar.data.main.profile.ResponseFollowerData
+import co.kr.soptandroidseminar.data.main.profile.ResponseUserInfoData
 import co.kr.soptandroidseminar.databinding.FragmentFollowerBinding
 import co.kr.soptandroidseminar.view.adapter.FollowerAdapter
 import retrofit2.Call

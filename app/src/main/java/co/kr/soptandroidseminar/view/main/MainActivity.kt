@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import co.kr.soptandroidseminar.R
-import co.kr.soptandroidseminar.view.camera.CameraFragment
+import co.kr.soptandroidseminar.view.main.camera.CameraFragment
 import co.kr.soptandroidseminar.databinding.ActivityMainBinding
 import co.kr.soptandroidseminar.view.adapter.MainViewPagerAdapter
-import co.kr.soptandroidseminar.view.home.HomeFragment
-import co.kr.soptandroidseminar.view.profile.ProfileFragment
+import co.kr.soptandroidseminar.view.main.home.HomeFragment
+import co.kr.soptandroidseminar.view.main.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.view.home
+package co.kr.soptandroidseminar.view.main.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

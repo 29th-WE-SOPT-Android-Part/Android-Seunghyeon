@@ -1,9 +1,9 @@
 package co.kr.soptandroidseminar.api
 
-import co.kr.soptandroidseminar.data.RequestSignInData
-import co.kr.soptandroidseminar.data.ResponseSignInData
-import co.kr.soptandroidseminar.data.RequestSignUpData
-import co.kr.soptandroidseminar.data.ResponseSignUpData
+import co.kr.soptandroidseminar.data.signin.RequestSignInData
+import co.kr.soptandroidseminar.data.signin.ResponseSignInData
+import co.kr.soptandroidseminar.data.signup.RequestSignUpData
+import co.kr.soptandroidseminar.data.signup.ResponseSignUpData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

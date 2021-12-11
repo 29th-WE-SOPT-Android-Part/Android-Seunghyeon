@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.view.profile
+package co.kr.soptandroidseminar.view.main.profile
 
 import android.graphics.Color
 import android.os.Bundle
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.kr.soptandroidseminar.api.ApiService
-import co.kr.soptandroidseminar.data.RepoData
-import co.kr.soptandroidseminar.data.ResponseRepoData
+import co.kr.soptandroidseminar.data.main.profile.RepoData
+import co.kr.soptandroidseminar.data.main.profile.ResponseRepoData
 import co.kr.soptandroidseminar.databinding.FragmentRepoBinding
 import co.kr.soptandroidseminar.view.adapter.RepoAdapter
 import retrofit2.Call

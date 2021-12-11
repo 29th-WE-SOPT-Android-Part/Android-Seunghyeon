@@ -1,4 +1,4 @@
-package co.kr.soptandroidseminar.view.profile
+package co.kr.soptandroidseminar.view.main.profile
 
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.api.ApiService
-import co.kr.soptandroidseminar.data.ResponseUserInfoData
+import co.kr.soptandroidseminar.data.main.profile.ResponseUserInfoData
 import co.kr.soptandroidseminar.databinding.FragmentProfileBinding
 import com.bumptech.glide.Glide
 import retrofit2.Call
