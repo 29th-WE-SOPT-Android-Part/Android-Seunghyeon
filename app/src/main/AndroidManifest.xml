@@ -3,8 +3,8 @@
     package="co.kr.soptandroidseminar">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +15,10 @@
         android:theme="@style/Theme.SoptAndroidSeminar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".main.MainActivity"
+            android:name=".view.DetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.main.MainActivity"
             android:exported="true" />
         <activity
             android:name=".DetailActivity"
@@ -24,10 +27,10 @@
             android:name=".HomeActivity"
             android:exported="true" />
         <activity
-            android:name=".signup.SignUpActivity"
+            android:name=".view.signup.SignUpActivity"
             android:exported="true" />
         <activity
-            android:name=".signin.SignInActivity"
+            android:name=".view.signin.SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

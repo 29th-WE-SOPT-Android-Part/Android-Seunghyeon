@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeFragment">
+    tools:context=".view.home.HomeFragment">
 
     <ImageView
         android:id="@+id/img_github"
@@ -56,7 +56,7 @@
 
     </com.google.android.material.tabs.TabLayout>
 
-    <co.kr.soptandroidseminar.home.NestedScrollableHost
+    <co.kr.soptandroidseminar.view.home.NestedScrollableHost
         android:id="@+id/nsh_home"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -70,6 +70,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-    </co.kr.soptandroidseminar.home.NestedScrollableHost>
+    </co.kr.soptandroidseminar.view.home.NestedScrollableHost>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

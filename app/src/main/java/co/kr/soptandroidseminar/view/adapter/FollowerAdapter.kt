@@ -1,8 +1,9 @@
-package co.kr.soptandroidseminar.profile
+package co.kr.soptandroidseminar.view.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import co.kr.soptandroidseminar.data.FollowerData
 import co.kr.soptandroidseminar.databinding.ItemFollowerBinding
 import com.bumptech.glide.Glide
 
@@ -22,7 +23,7 @@ class FollowerAdapter(val itemClick: (FollowerData) -> Unit) :
                 .into(binding.imgFollowerProfile)
 
             binding.tvFollowerName.text = data.name
-            binding.tvFollowerInfo.text = data.info
+            binding.tvFollowerUsername.text = data.info
 
             binding.root.setOnClickListener {
                 itemClick(data)

@@ -1,12 +1,12 @@
-package co.kr.soptandroidseminar.home
+package co.kr.soptandroidseminar.view.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.databinding.FragmentHomeBinding
+import co.kr.soptandroidseminar.view.adapter.HomeViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class HomeFragment : Fragment() {

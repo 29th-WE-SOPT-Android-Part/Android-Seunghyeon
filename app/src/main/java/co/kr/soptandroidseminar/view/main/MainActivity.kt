@@ -1,19 +1,21 @@
-package co.kr.soptandroidseminar.main
+package co.kr.soptandroidseminar.view.main
 
-import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager2.widget.ViewPager2
 import co.kr.soptandroidseminar.R
-import co.kr.soptandroidseminar.camera.CameraFragment
+import co.kr.soptandroidseminar.view.camera.CameraFragment
 import co.kr.soptandroidseminar.databinding.ActivityMainBinding
-import co.kr.soptandroidseminar.home.HomeFragment
-import co.kr.soptandroidseminar.profile.ProfileFragment
+import co.kr.soptandroidseminar.view.adapter.MainViewPagerAdapter
+import co.kr.soptandroidseminar.view.home.HomeFragment
+import co.kr.soptandroidseminar.view.profile.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewPagerAdapter: MainViewPagerAdapter
-    private val profileFragment: ProfileFragment by lazy { ProfileFragment() }
+    private lateinit var username: String
+    private lateinit var email: String
+    private val profileFragment: ProfileFragment by lazy { ProfileFragment(username) }
     private val homeFragment: HomeFragment by lazy { HomeFragment() }
     private val cameraFragment: CameraFragment by lazy { CameraFragment() }
 
@@ -21,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        username = intent.getStringExtra("name")!!
+        email = intent.getStringExtra("email")!!
 
         initViewPagerAdapter()
         initBottomNavigation()

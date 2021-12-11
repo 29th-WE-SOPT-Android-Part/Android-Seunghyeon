@@ -1,10 +1,9 @@
-package co.kr.soptandroidseminar.main
+package co.kr.soptandroidseminar.view.adapter
 
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
-class MainViewPagerAdapter(fragmentActivity: FragmentActivity): FragmentStateAdapter(fragmentActivity) {
+class HomeViewPagerAdapter(fragment: Fragment): FragmentStateAdapter(fragment) {
     val fragments = mutableListOf<Fragment>()
 
     override fun getItemCount(): Int {

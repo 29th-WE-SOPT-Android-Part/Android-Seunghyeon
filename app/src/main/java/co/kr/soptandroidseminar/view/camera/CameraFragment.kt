@@ -1,6 +1,5 @@
-package co.kr.soptandroidseminar.camera
+package co.kr.soptandroidseminar.view.camera
 
-import android.Manifest
 import android.app.Activity.RESULT_CANCELED
 import android.app.Activity.RESULT_OK
 import android.content.Intent
@@ -13,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.databinding.FragmentCameraBinding
 import com.bumptech.glide.Glide
 
