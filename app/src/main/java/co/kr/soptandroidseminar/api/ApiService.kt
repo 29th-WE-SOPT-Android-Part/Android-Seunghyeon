@@ -58,7 +58,7 @@ object ApiService {
         override fun intercept(chain: Interceptor.Chain): Response = with(chain) {
             val newRequest =
                 request().newBuilder()
-                    .addHeader("Authorization", "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")
+//                    .addHeader("Authorization", "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")
                     .build()
 
             proceed(newRequest)
