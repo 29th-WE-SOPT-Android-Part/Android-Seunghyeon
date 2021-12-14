@@ -3,7 +3,6 @@ package co.kr.soptandroidseminar.view.main.profile
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,13 +14,9 @@ import co.kr.soptandroidseminar.view.detail.DetailActivity
 import co.kr.soptandroidseminar.api.ApiService
 import co.kr.soptandroidseminar.data.main.profile.FollowerData
 import co.kr.soptandroidseminar.data.main.profile.ResponseFollowerData
-import co.kr.soptandroidseminar.data.main.profile.ResponseUserInfoData
 import co.kr.soptandroidseminar.databinding.FragmentFollowerBinding
 import co.kr.soptandroidseminar.util.enqueueUtil
 import co.kr.soptandroidseminar.view.adapter.FollowerAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class FollowerFragment(private val username: String) : Fragment() {
     private var _binding: FragmentFollowerBinding? = null
@@ -55,67 +50,29 @@ class FollowerFragment(private val username: String) : Fragment() {
     }
 
     private fun getFollowerList() {
-        val call: Call<List<ResponseFollowerData>> =
-            ApiService.githubService.getFollowerList(username)
-
-        call.enqueue(object : Callback<List<ResponseFollowerData>> {
-            override fun onResponse(
-                call: Call<List<ResponseFollowerData>>,
-                response: Response<List<ResponseFollowerData>>
-            ) {
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    if (data != null) {
-                        getFollowerInfo(data)
-                    }
-                } else {
-                    Log.d("server connect : Follower Fragment", "error")
-                    Log.d("server connect : Follower Fragment", "$response.errorBody()")
-                    Log.d("server connect : Follower Fragment", response.message())
-                    Log.d("server connect : Follower Fragment", "${response.code()}")
+        val call = ApiService.githubService.getFollowerList(username)
+        call.enqueueUtil(
+            onSuccess = {
+                if(!it.isNullOrEmpty()) {
+                    getFollowerInfo(it)
                 }
-            }
-
-            override fun onFailure(call: Call<List<ResponseFollowerData>>, t: Throwable) {
-                Log.d("server connect : Follower Fragment", "error: ${t.message}")
-            }
-        })
+            },
+            onError = null
+        )
     }
 
     private fun getFollowerInfo(list: List<ResponseFollowerData>) {
         list.forEach {
-            val call: Call<ResponseUserInfoData> = ApiService.githubService.getUserInfo(it.login)
-
-            call.enqueue(object : Callback<ResponseUserInfoData> {
-                override fun onResponse(
-                    call: Call<ResponseUserInfoData>,
-                    response: Response<ResponseUserInfoData>
-                ) {
-                    if (response.isSuccessful) {
-                        val data = response.body()
-                        adapter.itemList.add(
-                            FollowerData(
-                                data?.avatar_url,
-                                data?.login,
-                                data?.name,
-                                data?.bio
-                            )
-                        )
-                        adapter.notifyItemInserted(adapter.itemList.size - 1)
-                        Log.d("server connect : Follower Fragment", "success")
-                        Log.d("server connect : Follower Fragment", it.login)
-                    } else {
-                        Log.d("server connect : Follower Fragment", "error")
-                        Log.d("server connect : Follower Fragment", "$response.errorBody()")
-                        Log.d("server connect : Follower Fragment", response.message())
-                        Log.d("server connect : Follower Fragment", "${response.code()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseUserInfoData>, t: Throwable) {
-                    Log.d("server connect: FollowerFragment", "error: ${t.message}")
-                }
-            })
+            val call = ApiService.githubService.getUserInfo(it.login)
+            call.enqueueUtil(
+                onSuccess = {
+                    adapter.itemList.add(
+                        FollowerData(it.avatar_url, it.login, it.name, it.bio)
+                    )
+                    adapter.notifyItemInserted(adapter.itemList.size - 1)
+                },
+                onError = null
+            )
         }
         initRecyclerView()
     }

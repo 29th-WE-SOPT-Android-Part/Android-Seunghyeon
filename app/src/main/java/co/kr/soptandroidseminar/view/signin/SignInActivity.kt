@@ -3,19 +3,15 @@ package co.kr.soptandroidseminar.view.signin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import co.kr.soptandroidseminar.view.main.MainActivity
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.api.ApiService
 import co.kr.soptandroidseminar.data.local.SharedPreference
 import co.kr.soptandroidseminar.data.signin.RequestSignInData
-import co.kr.soptandroidseminar.data.signin.ResponseSignInData
 import co.kr.soptandroidseminar.view.signup.SignUpActivity
 import co.kr.soptandroidseminar.databinding.ActivitySignInBinding
+import co.kr.soptandroidseminar.util.enqueueUtil
 import co.kr.soptandroidseminar.util.simpleToast
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class SignInActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignInBinding
@@ -44,35 +40,21 @@ class SignInActivity : AppCompatActivity() {
                 binding.etSigninPw.text.toString()
             )
 
-            val call: Call<ResponseSignInData> = ApiService.seminarService.postSingIn(requestSignInData)
-
-            call.enqueue(object: Callback<ResponseSignInData> {
-                override fun onResponse(
-                    call: Call<ResponseSignInData>,
-                    response: Response<ResponseSignInData>
-                ) {
-                    if(response.isSuccessful) {
-                        val data = response.body()?.data
-                        simpleToast("안녕하세요 ${data?.name}!")
-                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
-                        SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", data?.email.toString())
-                        startActivity(intent)
-                    } else {
-                        Log.d("server connect : SignIn", "error")
-                        Log.d("server connect : SignIn", "$response.errorBody()")
-                        Log.d("server connect : SignIn", response.message())
-                        Log.d("server connect : SignIn", "${response.code()}")
-                        simpleToast("로그인 실패")
-                        SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", "hansh0101@naver.com")
-                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-
-                override fun onFailure(call: Call<ResponseSignInData>, t: Throwable) {
+            val call = ApiService.seminarService.postSingIn(requestSignInData)
+            call.enqueueUtil(
+                onSuccess = {
+                    simpleToast("안녕하세요 ${it.data.name}")
+                    val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                    SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", it.data.email)
+                    startActivity(intent)
+                },
+                onError = {
                     simpleToast("로그인 실패")
+                    SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", "hansh0101@naver.com")
+                    val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                    startActivity(intent)
                 }
-            })
+            )
         } else {
             simpleToast("ID/PW를 확인해주세요!")
         }

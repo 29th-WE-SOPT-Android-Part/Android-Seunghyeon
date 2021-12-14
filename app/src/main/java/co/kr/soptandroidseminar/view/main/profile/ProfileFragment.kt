@@ -2,20 +2,16 @@ package co.kr.soptandroidseminar.view.main.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.api.ApiService
-import co.kr.soptandroidseminar.data.main.profile.ResponseUserInfoData
 import co.kr.soptandroidseminar.databinding.FragmentProfileBinding
+import co.kr.soptandroidseminar.util.enqueueUtil
 import co.kr.soptandroidseminar.view.main.profile.setting.SettingActivity
 import com.bumptech.glide.Glide
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class ProfileFragment(private val username: String) : Fragment() {
     private var _binding: FragmentProfileBinding? = null
@@ -27,7 +23,6 @@ class ProfileFragment(private val username: String) : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         getServerData()
-
         startSetting()
 
         return binding.root
@@ -39,32 +34,17 @@ class ProfileFragment(private val username: String) : Fragment() {
     }
 
     private fun getServerData() {
-        val call: Call<ResponseUserInfoData> = ApiService.githubService.getUserInfo(username)
-
-        call.enqueue(object : Callback<ResponseUserInfoData> {
-            override fun onResponse(
-                call: Call<ResponseUserInfoData>,
-                response: Response<ResponseUserInfoData>
-            ) {
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    data?.avatar_url?.let { initProfilePicture(it) }
-                    binding.tvProfileName.text = data?.name
-                    binding.tvProfileId.text = data?.login
-                    data?.bio?.let { binding.tvProfileIntro.text = it }
-                    initTransaction()
-                } else {
-                    Log.d("server connect : Profile Fragment", "error")
-                    Log.d("server connect : Profile Fragment", "$response.errorBody()")
-                    Log.d("server connect : Profile Fragment", response.message())
-                    Log.d("server connect : Profile Fragment", "${response.code()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ResponseUserInfoData>, t: Throwable) {
-                Log.d("server connect : Profile Fragment", "error: ${t.message}")
-            }
-        })
+        val call = ApiService.githubService.getUserInfo(username)
+        call.enqueueUtil(
+            onSuccess = {
+                it.avatar_url?.let { initProfilePicture(it) }
+                binding.tvProfileName.text = it.name
+                binding.tvProfileId.text = it.login
+                it.bio?.let { binding.tvProfileIntro.text = it }
+                initTransaction()
+            },
+            onError = null
+        )
     }
 
     private fun initProfilePicture(imgUrl: String) {

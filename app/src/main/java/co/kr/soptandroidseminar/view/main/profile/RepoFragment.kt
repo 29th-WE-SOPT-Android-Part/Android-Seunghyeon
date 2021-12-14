@@ -2,7 +2,6 @@ package co.kr.soptandroidseminar.view.main.profile
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.kr.soptandroidseminar.api.ApiService
 import co.kr.soptandroidseminar.data.main.profile.RepoData
-import co.kr.soptandroidseminar.data.main.profile.ResponseRepoData
 import co.kr.soptandroidseminar.databinding.FragmentRepoBinding
+import co.kr.soptandroidseminar.util.enqueueUtil
 import co.kr.soptandroidseminar.view.adapter.RepoAdapter
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class RepoFragment(private val username: String) : Fragment() {
     private var _binding: FragmentRepoBinding? = null
@@ -43,36 +39,20 @@ class RepoFragment(private val username: String) : Fragment() {
     }
 
     private fun getRepoList() {
-        val call: Call<List<ResponseRepoData>> = ApiService.githubService.getRepoList(username)
-
-        call.enqueue(object : Callback<List<ResponseRepoData>> {
-            override fun onResponse(
-                call: Call<List<ResponseRepoData>>,
-                response: Response<List<ResponseRepoData>>
-            ) {
-                if (response.isSuccessful) {
-                    val data = response.body()
-                    data?.forEach {
-                        adapter.itemList.add(
-                            RepoData(
-                                it.name,
-                                it.description
-                            )
+        val call = ApiService.githubService.getRepoList(username)
+        call.enqueueUtil(
+            onSuccess = {
+                it.forEach {
+                    adapter.itemList.add(
+                        RepoData(
+                            it.name, it.description
                         )
-                        adapter.notifyItemInserted(adapter.itemList.size - 1)
-                    }
-                } else {
-                    Log.d("server connect : Repo Fragment", "error")
-                    Log.d("server connect : Repo Fragment", "$response.errorBody()")
-                    Log.d("server connect : Repo Fragment", response.message())
-                    Log.d("server connect : Repo Fragment", "${response.code()}")
+                    )
+                    adapter.notifyItemInserted(adapter.itemList.size - 1)
                 }
-            }
-
-            override fun onFailure(call: Call<List<ResponseRepoData>>, t: Throwable) {
-                Log.d("server connect : Repo Fragment", "error: ${t.message}")
-            }
-        })
+            },
+            onError = null
+        )
     }
 
     private fun initRecyclerView() {
