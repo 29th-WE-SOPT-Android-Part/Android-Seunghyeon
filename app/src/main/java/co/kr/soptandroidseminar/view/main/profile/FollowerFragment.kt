@@ -17,6 +17,7 @@ import co.kr.soptandroidseminar.data.main.profile.FollowerData
 import co.kr.soptandroidseminar.data.main.profile.ResponseFollowerData
 import co.kr.soptandroidseminar.data.main.profile.ResponseUserInfoData
 import co.kr.soptandroidseminar.databinding.FragmentFollowerBinding
+import co.kr.soptandroidseminar.util.enqueueUtil
 import co.kr.soptandroidseminar.view.adapter.FollowerAdapter
 import retrofit2.Call
 import retrofit2.Callback

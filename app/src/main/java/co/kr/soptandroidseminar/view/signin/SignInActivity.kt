@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import co.kr.soptandroidseminar.view.main.MainActivity
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.api.ApiService
@@ -13,6 +12,7 @@ import co.kr.soptandroidseminar.data.signin.RequestSignInData
 import co.kr.soptandroidseminar.data.signin.ResponseSignInData
 import co.kr.soptandroidseminar.view.signup.SignUpActivity
 import co.kr.soptandroidseminar.databinding.ActivitySignInBinding
+import co.kr.soptandroidseminar.util.simpleToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -53,7 +53,7 @@ class SignInActivity : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful) {
                         val data = response.body()?.data
-                        Toast.makeText(this@SignInActivity, "안녕하세요 ${data?.name}!", Toast.LENGTH_SHORT).show()
+                        simpleToast("안녕하세요 ${data?.name}!")
                         val intent = Intent(this@SignInActivity, MainActivity::class.java)
                         SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", data?.email.toString())
                         startActivity(intent)
@@ -62,7 +62,7 @@ class SignInActivity : AppCompatActivity() {
                         Log.d("server connect : SignIn", "$response.errorBody()")
                         Log.d("server connect : SignIn", response.message())
                         Log.d("server connect : SignIn", "${response.code()}")
-                        Toast.makeText(this@SignInActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                        simpleToast("로그인 실패")
                         SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", "hansh0101@naver.com")
                         val intent = Intent(this@SignInActivity, MainActivity::class.java)
                         startActivity(intent)
@@ -70,11 +70,11 @@ class SignInActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<ResponseSignInData>, t: Throwable) {
-                    Toast.makeText(this@SignInActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                    simpleToast("로그인 실패")
                 }
             })
         } else {
-            Toast.makeText(this, "ID/PW를 확인해주세요!", Toast.LENGTH_SHORT).show()
+            simpleToast("ID/PW를 확인해주세요!")
         }
     }
 
@@ -85,7 +85,7 @@ class SignInActivity : AppCompatActivity() {
 
     private fun isAutoLogin() {
         if(SharedPreference.getAutoLogin(this)) {
-            Toast.makeText(this@SignInActivity, "자동 로그인", Toast.LENGTH_SHORT).show()
+            simpleToast("자동 로그인")
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

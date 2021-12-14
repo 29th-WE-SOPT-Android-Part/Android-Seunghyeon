@@ -29,9 +29,6 @@ class MainActivity : AppCompatActivity() {
         username = SharedPreference.getUserId(this)!!
         email = SharedPreference.getUserEmail(this)!!
 
-        Log.d("username", username)
-        Log.d("email", email)
-
         initViewPagerAdapter()
         initBottomNavigation()
     }

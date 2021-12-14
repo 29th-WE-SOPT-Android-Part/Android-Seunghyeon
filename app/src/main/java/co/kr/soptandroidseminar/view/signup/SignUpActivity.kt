@@ -3,11 +3,11 @@ package co.kr.soptandroidseminar.view.signup
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import co.kr.soptandroidseminar.api.ApiService
 import co.kr.soptandroidseminar.data.signup.RequestSignUpData
 import co.kr.soptandroidseminar.data.signup.ResponseSignUpData
 import co.kr.soptandroidseminar.databinding.ActivitySignUpBinding
+import co.kr.soptandroidseminar.util.simpleToast
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -41,24 +41,24 @@ class SignUpActivity : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful) {
                         val data = response.body()
-                        Toast.makeText(this@SignUpActivity, data?.message, Toast.LENGTH_SHORT).show()
+                        data?.message?.let { simpleToast(it) }
                     } else {
                         Log.d("server connect : SignUp", "error")
                         Log.d("server connect : SignUp", "$response.errorBody()")
                         Log.d("server connect : SignUp", response.message())
                         Log.d("server connect : SignUp", "${response.code()}")
-                        Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                        simpleToast("회원가입 실패")
                     }
                 }
 
                 override fun onFailure(call: Call<ResponseSignUpData>, t: Throwable) {
-                    Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    simpleToast("회원가입 실패")
                 }
             })
 
             finish()
         } else {
-            Toast.makeText(this, "이름/ID/PW를 확인해주세요.", Toast.LENGTH_SHORT).show()
+            simpleToast("이름/ID/PW를 확인해주세요")
         }
     }
 }
