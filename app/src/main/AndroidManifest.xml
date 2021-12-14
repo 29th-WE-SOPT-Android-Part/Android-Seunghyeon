@@ -15,6 +15,9 @@
         android:theme="@style/Theme.SoptAndroidSeminar"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.main.profile.setting.SettingActivity"
+            android:exported="true" />
+        <activity
             android:name=".view.onboarding.OnBoardingActivity"
             android:exported="true">
             <intent-filter>

@@ -1,5 +1,6 @@
 package co.kr.soptandroidseminar.view.main.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.api.ApiService
 import co.kr.soptandroidseminar.data.main.profile.ResponseUserInfoData
 import co.kr.soptandroidseminar.databinding.FragmentProfileBinding
+import co.kr.soptandroidseminar.view.main.profile.setting.SettingActivity
 import com.bumptech.glide.Glide
 import retrofit2.Call
 import retrofit2.Callback
@@ -25,6 +27,8 @@ class ProfileFragment(private val username: String) : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         getServerData()
+
+        startSetting()
 
         return binding.root
     }
@@ -103,6 +107,13 @@ class ProfileFragment(private val username: String) : Fragment() {
                 binding.btnListFollower.isSelected = false
                 binding.btnListRepo.isSelected = true
             }
+        }
+    }
+
+    private fun startSetting() {
+        binding.imgProfileSetting.setOnClickListener {
+            val intent = Intent(requireContext(), SettingActivity::class.java)
+            startActivity(intent)
         }
     }
 
