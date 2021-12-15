@@ -1153,3 +1153,231 @@
     ```
 </div>
 </details>
+
+<details>
+<summary><b>7차 세미나 과제</b></summary>
+<div markdown="1"> 
+  <h4> 필수과제 </h4>
+
+* **GIF**
+
+  <img src="https://user-images.githubusercontent.com/81508084/146097916-ae7df43d-c853-41cf-bd0b-975a85d866c6.gif" width="30%" height="30%"/>
+
+
+* **온보딩 화면 만들기**
+
+
+    * OnBoardingActivity 위에 OnBoardingOneFragment, OnBoardingTwoFragment, OnBoardingThreeFragment 띄움
+
+
+    * OnBoardingOneFragment.kt
+
+      ```kotlin
+          private fun skipOnBoarding() {
+              binding.btnOnboardingOne.setOnClickListener {
+                  findNavController().navigate(R.id.action_frg_onboarding_one_to_frg_onboarding_two)
+              }
+          }
+      ```
+
+
+    * OnBoardingTwoFragment.kt
+
+      ```kotlin
+          private fun skipOnBoarding() {
+              binding.btnOnboardingTwo.setOnClickListener {
+                  findNavController().navigate(R.id.action_frg_onboarding_two_to_frg_onboarding_three)
+              }
+          }
+      ```
+
+
+    * OnBoardingThreeFragment.kt
+
+      ```kotlin
+          private fun skipOnBoarding() {
+              binding.btnOnboardingThree.setOnClickListener {
+                  val intent = Intent(requireContext(), SignInActivity::class.java)
+                  startActivity(intent)
+                  (activity as OnBoardingActivity).finish()
+              }
+          }
+      ```
+
+
+* **SharedPreferences 활용해서 자동로그인 / 자동로그인 해제 구현하기**
+
+
+  * SharedPreference.kt
+
+    ```kotlin
+    object SharedPreference {
+        private const val STORAGE_KEY = "USER_AUTH"
+        private const val AUTO_LOGIN = "AUTO_LOGIN"
+        private const val USER_ID = "USER_ID"
+        private const val USER_EMAIL = "USER_EMAIL"
+    
+        fun getAutoLogin(context: Context): Boolean {
+            return getSharedPreference(context).getBoolean(AUTO_LOGIN, false)
+        }
+    
+        fun getUserId(context: Context): String? {
+            return getSharedPreference(context).getString(USER_ID, "")
+        }
+    
+        fun getUserEmail(context: Context): String? {
+            return getSharedPreference(context).getString(USER_EMAIL, "")
+        }
+    
+        fun setAutoLogin(context: Context, value: Boolean, userId: String, userEmail: String) {
+            getSharedPreference(context).edit()
+                .putBoolean(AUTO_LOGIN, value)
+                .putString(USER_ID, userId)
+                .putString(USER_EMAIL, userEmail)
+                .apply()
+        }
+    
+        fun removeAutoLogin(context: Context) {
+            getSharedPreference(context).edit()
+                .remove(AUTO_LOGIN)
+                .apply()
+        }
+    
+        fun clearAutoLogin(context: Context) {
+            getSharedPreference(context).edit()
+                .clear()
+                .apply()
+        }
+    
+        fun getSharedPreference(context: Context): SharedPreferences {
+            return context.getSharedPreferences(STORAGE_KEY, Context.MODE_PRIVATE)
+        }
+    }
+    ```
+
+  * SignInActivity.kt
+
+    ```kotlin
+        private fun clickLogin() {
+            if(!binding.etSigninId.text.isNullOrBlank() && !binding.etSigninPw.text.isNullOrBlank()) {
+                val requestSignInData = RequestSignInData(
+                    binding.etSigninId.text.toString(),
+                    binding.etSigninPw.text.toString()
+                )
+    
+                val call = ApiService.seminarService.postSingIn(requestSignInData)
+                call.enqueueUtil(
+                    onSuccess = {
+                        simpleToast("안녕하세요 ${it.data.name}")
+                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                        SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", it.data.email)
+                        startActivity(intent)
+                    },
+                    onError = {
+                        simpleToast("로그인 실패")
+                        SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", "hansh0101@naver.com")
+                        val intent = Intent(this@SignInActivity, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                )
+            } else {
+                simpleToast("ID/PW를 확인해주세요!")
+            }
+        }
+        
+        private fun isAutoLogin() {
+            if(SharedPreference.getAutoLogin(this)) {
+                simpleToast("자동 로그인")
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    ```
+
+  * SettingActivity.kt
+
+    ```kotlin
+        private fun noAutoLogin() {
+            binding.tvSettingAutoLogin.setOnClickListener {
+                SharedPreference.removeAutoLogin(this)
+                simpleToast("자동로그인 해제")
+            }
+        }
+    
+        private fun deleteLoginCache() {
+            binding.tvSettingDeleteCache.setOnClickListener {
+                SharedPreference.clearAutoLogin(this)
+                simpleToast("로그인 캐시 삭제")
+            }
+        }
+    ```
+
+* **본인이 사용하는 Util 클래스 코드 및 패키징 방식 리드미에 정리하기**
+
+
+  * MyUtil.kt
+
+    ```kotlin
+    package co.kr.soptandroidseminar.util
+    
+    import android.content.Context
+    import android.util.Log
+    import android.widget.Toast
+    import retrofit2.Call
+    import retrofit2.Callback
+    import retrofit2.Response
+    
+    fun Context.simpleToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+    
+    fun <ResponseType> Call<ResponseType>.enqueueUtil(
+        onSuccess: (ResponseType) -> Unit,
+        onError: ((stateCode: Int) -> Unit)? = null
+    ) {
+        this.enqueue(object : Callback<ResponseType> {
+            override fun onResponse(call: Call<ResponseType>, response: Response<ResponseType>) {
+                if (response.isSuccessful) {
+                    onSuccess.invoke(response.body() ?: return)
+                } else {
+                    onError?.invoke(response.code())
+                    Log.d("server connect", "error")
+                    Log.d("server connect", "$response.errorBody()")
+                    Log.d("server connect", response.message())
+                    Log.d("server connect", "${response.code()}")
+                }
+            }
+    
+            override fun onFailure(call: Call<ResponseType>, t: Throwable) {
+                Log.d("Network", "error:$t")
+            }
+        })
+    }
+    ```
+
+  * 패키징
+
+    ```
+    📂SoptAndroidSeminar
+     ┣ 📂 api
+     ┣ 📂 data
+     ┃  ┣ 📂 local
+     ┃  ┣ 📂 main
+     ┃  ┃  ┗ 📂profile
+     ┃  ┣ 📂 signin
+     ┃  ┗ 📂 signup
+     ┣ 📂 util
+     ┗ 📂 view
+       ┣ 📂 adapter
+       ┣ 📂 detail
+       ┣ 📂 main
+       ┃  ┣ 📂 camera
+       ┃  ┣ 📂 home
+       ┃  ┗ 📂 profile
+       ┣ 📂 onboarding
+       ┣ 📂 signin
+       ┗ 📂 signup
+    ```
+  
+</div>
+</details>
