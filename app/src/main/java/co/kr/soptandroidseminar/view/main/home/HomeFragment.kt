@@ -27,6 +27,11 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     private fun initViewPager() {
         val fragmentList = listOf(homeFollowingFragment, homeFollowerFragment)
         viewPagerAdapter = HomeViewPagerAdapter(this)

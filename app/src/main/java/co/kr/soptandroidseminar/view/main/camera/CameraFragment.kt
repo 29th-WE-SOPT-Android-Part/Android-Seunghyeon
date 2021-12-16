@@ -28,6 +28,11 @@ class CameraFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
+
     private val activityLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if(it.resultCode == RESULT_OK && it.data != null) {

@@ -18,4 +18,9 @@ class HomeFollowingFragment : Fragment() {
         _binding = FragmentHomeFollowingBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 }

@@ -45,8 +45,8 @@ class FollowerFragment(private val username: String) : Fragment() {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
+        super.onDestroyView()
     }
 
     private fun getFollowerList() {
