@@ -13,12 +13,12 @@ object SharedPreference {
         return getSharedPreference(context).getBoolean(AUTO_LOGIN, false)
     }
 
-    fun getUserId(context: Context): String? {
-        return getSharedPreference(context).getString(USER_ID, "")
+    fun getUserId(context: Context): String {
+        return getSharedPreference(context).getString(USER_ID, "") ?: ""
     }
 
-    fun getUserEmail(context: Context): String? {
-        return getSharedPreference(context).getString(USER_EMAIL, "")
+    fun getUserEmail(context: Context): String {
+        return getSharedPreference(context).getString(USER_EMAIL, "") ?: ""
     }
 
     fun setAutoLogin(context: Context, value: Boolean, userId: String, userEmail: String) {
