@@ -2,7 +2,6 @@ package co.kr.soptandroidseminar.view.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.data.local.AutoLoginData
