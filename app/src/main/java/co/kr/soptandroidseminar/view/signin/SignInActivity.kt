@@ -45,12 +45,12 @@ class SignInActivity : AppCompatActivity() {
                 onSuccess = {
                     simpleToast("안녕하세요 ${it.data.name}")
                     val intent = Intent(this@SignInActivity, MainActivity::class.java)
-                    SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", it.data.email)
+                    AutoLoginData.setAutoLogin(this@SignInActivity, true, "hansh0101", it.data.email)
                     startActivity(intent)
                 },
                 onError = {
                     simpleToast("로그인 실패")
-                    SharedPreference.setAutoLogin(this@SignInActivity, true, "hansh0101", "hansh0101@naver.com")
+                    AutoLoginData.setAutoLogin(this@SignInActivity, true, "hansh0101", "hansh0101@naver.com")
                     val intent = Intent(this@SignInActivity, MainActivity::class.java)
                     startActivity(intent)
                 }
