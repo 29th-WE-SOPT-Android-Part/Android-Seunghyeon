@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.viewpager2.widget.ViewPager2
 import co.kr.soptandroidseminar.R
-import co.kr.soptandroidseminar.data.local.SharedPreference
+import co.kr.soptandroidseminar.data.local.AutoLoginData
 import co.kr.soptandroidseminar.view.main.camera.CameraFragment
 import co.kr.soptandroidseminar.databinding.ActivityMainBinding
 import co.kr.soptandroidseminar.view.adapter.MainViewPagerAdapter
@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        username = SharedPreference.getUserId(this)!!
-        email = SharedPreference.getUserEmail(this)!!
+        username = AutoLoginData.getUserId(this)
+        email = AutoLoginData.getUserEmail(this)
 
         initViewPagerAdapter()
         initBottomNavigation()

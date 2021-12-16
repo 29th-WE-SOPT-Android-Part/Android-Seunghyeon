@@ -3,7 +3,7 @@ package co.kr.soptandroidseminar.data.local
 import android.content.Context
 import android.content.SharedPreferences
 
-object SharedPreference {
+object AutoLoginData {
     private const val STORAGE_KEY = "USER_AUTH"
     private const val AUTO_LOGIN = "AUTO_LOGIN"
     private const val USER_ID = "USER_ID"
