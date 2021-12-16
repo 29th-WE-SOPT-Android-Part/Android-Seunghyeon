@@ -31,7 +31,7 @@ class OnBoardingThreeFragment : Fragment() {
     private fun skipOnBoarding() {
         binding.btnOnboardingThree.setOnClickListener {
             findNavController().navigate(R.id.action_frg_onboarding_three_to_activity_signin)
-            (activity as OnBoardingActivity).finish()
+            requireActivity().finish()
         }
     }
 }
