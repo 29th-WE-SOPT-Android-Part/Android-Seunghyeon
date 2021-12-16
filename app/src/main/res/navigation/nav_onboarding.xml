@@ -23,8 +23,7 @@
         tools:layout="@layout/fragment_on_boarding_two">
         <action
             android:id="@+id/action_frg_onboarding_two_to_frg_onboarding_three"
-            app:popUpTo="@id/frg_onboarding_two"
-            app:popUpToInclusive="true"
+            app:popUpTo="@id/frg_onboarding_one"
             app:destination="@id/frg_onboarding_three" />
     </fragment>
 
@@ -33,6 +32,17 @@
         android:name="co.kr.soptandroidseminar.view.onboarding.OnBoardingThreeFragment"
         android:label="fragment_onboarding_three"
         tools:layout="@layout/fragment_on_boarding_three">
+        <action
+            android:id="@+id/action_frg_onboarding_three_to_activity_signin"
+            app:destination="@id/activity_signin"
+            app:popUpToInclusive="true"/>
     </fragment>
+
+    <activity
+        android:id="@+id/activity_signin"
+        android:name="co.kr.soptandroidseminar.view.signin.SignInActivity"
+        android:label="activity_signin"
+        tools:layout="@layout/activity_sign_in">
+    </activity>
 
 </navigation>
