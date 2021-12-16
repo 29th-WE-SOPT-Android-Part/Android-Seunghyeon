@@ -1378,6 +1378,58 @@
        ┣ 📂 signin
        ┗ 📂 signup
     ```
-  
+<h4> 도전과제 </h4>
+
+* **GIF**
+
+  <img src="https://user-images.githubusercontent.com/81508084/146324338-692443c6-d24e-4087-9ab1-8cd53e75deba.gif" width="30%" height="30%"/>
+
+* **NavigationComponent에서 BackStack 관리**
+
+  * nav_onboarding.xml
+
+    ```xml
+    <?xml version="1.0" encoding="utf-8"?>
+    <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/nav_onboarding"
+        app:startDestination="@id/frg_onboarding_one">
+    
+        <fragment
+            android:id="@+id/frg_onboarding_one"
+            android:name="co.kr.soptandroidseminar.view.onboarding.OnBoardingOneFragment"
+            android:label="fragment_onboarding_one"
+            tools:layout="@layout/fragment_on_boarding_one">
+            <action
+                android:id="@+id/action_frg_onboarding_one_to_frg_onboarding_two"
+                app:popUpTo="@id/frg_onboarding_one"
+                app:destination="@id/frg_onboarding_two" />
+        </fragment>
+    
+        <fragment
+            android:id="@+id/frg_onboarding_two"
+            android:name="co.kr.soptandroidseminar.view.onboarding.OnBoardingTwoFragment"
+            android:label="fragment_onboarding_two"
+            tools:layout="@layout/fragment_on_boarding_two">
+            <action
+                android:id="@+id/action_frg_onboarding_two_to_frg_onboarding_three"
+                app:popUpTo="@id/frg_onboarding_two"
+                app:popUpToInclusive="true"
+                app:destination="@id/frg_onboarding_three" />
+        </fragment>
+    
+        <fragment
+            android:id="@+id/frg_onboarding_three"
+            android:name="co.kr.soptandroidseminar.view.onboarding.OnBoardingThreeFragment"
+            android:label="fragment_onboarding_three"
+            tools:layout="@layout/fragment_on_boarding_three">
+        </fragment>
+    
+    </navigation>
+    ```
+
+    
+
 </div>
 </details>
