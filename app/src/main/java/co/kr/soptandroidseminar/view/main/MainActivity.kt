@@ -56,10 +56,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-
-    }
-
     private companion object {
         const val PROFILE_FRAGMENT = 0
         const val HOME_FRAGMENT = 1
