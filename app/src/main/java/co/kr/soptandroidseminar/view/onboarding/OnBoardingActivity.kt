@@ -21,6 +21,7 @@ class OnBoardingActivity : AppCompatActivity() {
         if(AutoLoginData.getAutoLogin(this)) {
             val intent = Intent(this@OnBoardingActivity, MainActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 }

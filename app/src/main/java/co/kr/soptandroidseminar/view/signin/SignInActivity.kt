@@ -47,12 +47,14 @@ class SignInActivity : AppCompatActivity() {
                     val intent = Intent(this@SignInActivity, MainActivity::class.java)
                     AutoLoginData.setAutoLogin(this@SignInActivity, true, "hansh0101", it.data.email)
                     startActivity(intent)
+                    finish()
                 },
                 onError = {
                     simpleToast("로그인 실패")
                     AutoLoginData.setAutoLogin(this@SignInActivity, true, "hansh0101", "hansh0101@naver.com")
                     val intent = Intent(this@SignInActivity, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
                 }
             )
         } else {
