@@ -6,7 +6,7 @@ import android.os.Bundle
 import co.kr.soptandroidseminar.view.main.MainActivity
 import co.kr.soptandroidseminar.R
 import co.kr.soptandroidseminar.api.ApiService
-import co.kr.soptandroidseminar.data.local.SharedPreference
+import co.kr.soptandroidseminar.data.local.AutoLoginData
 import co.kr.soptandroidseminar.data.signin.RequestSignInData
 import co.kr.soptandroidseminar.view.signup.SignUpActivity
 import co.kr.soptandroidseminar.databinding.ActivitySignInBinding
