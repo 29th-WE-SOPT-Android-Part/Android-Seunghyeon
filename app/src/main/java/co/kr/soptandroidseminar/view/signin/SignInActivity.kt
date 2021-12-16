@@ -66,7 +66,7 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun isAutoLogin() {
-        if(SharedPreference.getAutoLogin(this)) {
+        if(AutoLoginData.getAutoLogin(this)) {
             simpleToast("자동 로그인")
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
