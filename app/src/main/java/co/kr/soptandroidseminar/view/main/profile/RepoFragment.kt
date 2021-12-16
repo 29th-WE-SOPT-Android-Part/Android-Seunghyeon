@@ -48,8 +48,8 @@ class RepoFragment(private val username: String) : Fragment() {
                             it.name, it.description
                         )
                     )
-                    adapter.notifyItemInserted(adapter.itemList.size - 1)
                 }
+                adapter.notifyItemRangeInserted(adapter.itemList.size - it.size, it.size)
             }
         )
     }

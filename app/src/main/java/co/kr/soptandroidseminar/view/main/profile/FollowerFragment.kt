@@ -62,6 +62,7 @@ class FollowerFragment(private val username: String) : Fragment() {
     }
 
     private fun getFollowerInfo(list: List<ResponseFollowerData>) {
+        var successCount = 0
         list.forEach {
             val call = ApiService.githubService.getUserInfo(it.login)
             call.enqueueUtil(
@@ -69,10 +70,11 @@ class FollowerFragment(private val username: String) : Fragment() {
                     adapter.itemList.add(
                         FollowerData(it.avatar_url, it.login, it.name, it.bio)
                     )
-                    adapter.notifyItemInserted(adapter.itemList.size - 1)
+                    successCount++
                 }
             )
         }
+        adapter.notifyItemRangeInserted(adapter.itemList.size - successCount, successCount)
         initRecyclerView()
     }
 
