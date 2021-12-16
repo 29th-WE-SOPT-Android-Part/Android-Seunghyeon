@@ -70,8 +70,7 @@ class FollowerFragment(private val username: String) : Fragment() {
                         FollowerData(it.avatar_url, it.login, it.name, it.bio)
                     )
                     adapter.notifyItemInserted(adapter.itemList.size - 1)
-                },
-                onError = null
+                }
             )
         }
         initRecyclerView()

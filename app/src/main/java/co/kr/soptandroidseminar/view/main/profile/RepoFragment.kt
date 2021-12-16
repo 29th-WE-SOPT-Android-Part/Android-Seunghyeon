@@ -50,8 +50,7 @@ class RepoFragment(private val username: String) : Fragment() {
                     )
                     adapter.notifyItemInserted(adapter.itemList.size - 1)
                 }
-            },
-            onError = null
+            }
         )
     }
 

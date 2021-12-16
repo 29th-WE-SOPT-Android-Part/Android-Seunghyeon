@@ -42,8 +42,7 @@ class ProfileFragment(private val username: String) : Fragment() {
                 binding.tvProfileId.text = it.login
                 it.bio?.let { binding.tvProfileIntro.text = it }
                 initTransaction()
-            },
-            onError = null
+            }
         )
     }
 
