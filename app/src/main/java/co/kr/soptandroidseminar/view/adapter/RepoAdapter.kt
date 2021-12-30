@@ -3,7 +3,7 @@ package co.kr.soptandroidseminar.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import co.kr.soptandroidseminar.data.RepoData
+import co.kr.soptandroidseminar.data.main.profile.RepoData
 import co.kr.soptandroidseminar.databinding.ItemRepoBinding
 
 class RepoAdapter : RecyclerView.Adapter<RepoAdapter.RepoViewHolder>() {

@@ -3,7 +3,7 @@ package co.kr.soptandroidseminar.view.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import co.kr.soptandroidseminar.data.FollowerData
+import co.kr.soptandroidseminar.data.main.profile.FollowerData
 import co.kr.soptandroidseminar.databinding.ItemFollowerBinding
 import com.bumptech.glide.Glide
 

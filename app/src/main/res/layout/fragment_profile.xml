@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bubblegum"
-    tools:context=".view.profile.ProfileFragment">
+    tools:context=".view.main.profile.ProfileFragment">
 
     <ImageView
         android:id="@+id/img_profile_picture"

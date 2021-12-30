@@ -1,8 +1,8 @@
 package co.kr.soptandroidseminar.api
 
-import co.kr.soptandroidseminar.data.ResponseFollowerData
-import co.kr.soptandroidseminar.data.ResponseRepoData
-import co.kr.soptandroidseminar.data.ResponseUserInfoData
+import co.kr.soptandroidseminar.data.main.profile.ResponseFollowerData
+import co.kr.soptandroidseminar.data.main.profile.ResponseRepoData
+import co.kr.soptandroidseminar.data.main.profile.ResponseUserInfoData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

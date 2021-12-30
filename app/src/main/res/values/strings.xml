@@ -27,4 +27,12 @@
     <string name="text_github">GitHub</string>
     <string name="btn_camera">첨부하기</string>
     <string name="tv_camera">사진을 첨부해주세요</string>
+    <string name="onboarding_skip">시작하기</string>
+    <string name="onboarding_title">들어가며</string>
+    <string name="fragment_one">Fragment One</string>
+    <string name="fragment_three">Fragment Three</string>
+    <string name="fragment_two">Fragment Two</string>
+    <string name="onboarding_next">다음으로</string>
+    <string name="setting_auto_login">자동로그인 해제</string>
+    <string name="setting_delete_cache">로그인 캐시 삭제</string>
 </resources>

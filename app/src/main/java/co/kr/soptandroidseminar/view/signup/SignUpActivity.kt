@@ -2,15 +2,11 @@ package co.kr.soptandroidseminar.view.signup
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import co.kr.soptandroidseminar.api.ApiService
-import co.kr.soptandroidseminar.data.RequestSignUpData
-import co.kr.soptandroidseminar.data.ResponseSignUpData
+import co.kr.soptandroidseminar.data.signup.RequestSignUpData
 import co.kr.soptandroidseminar.databinding.ActivitySignUpBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import co.kr.soptandroidseminar.util.enqueueUtil
+import co.kr.soptandroidseminar.util.simpleToast
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignUpBinding
@@ -32,33 +28,18 @@ class SignUpActivity : AppCompatActivity() {
                 binding.etSignupPw.text.toString()
             )
 
-            val call: Call<ResponseSignUpData> = ApiService.seminarService.postSignUp(requestSignUpData)
-
-            call.enqueue(object: Callback<ResponseSignUpData> {
-                override fun onResponse(
-                    call: Call<ResponseSignUpData>,
-                    response: Response<ResponseSignUpData>
-                ) {
-                    if(response.isSuccessful) {
-                        val data = response.body()
-                        Toast.makeText(this@SignUpActivity, data?.message, Toast.LENGTH_SHORT).show()
-                    } else {
-                        Log.d("server connect : SignUp", "error")
-                        Log.d("server connect : SignUp", "$response.errorBody()")
-                        Log.d("server connect : SignUp", response.message())
-                        Log.d("server connect : SignUp", "${response.code()}")
-                        Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
-                    }
+            val call = ApiService.seminarService.postSignUp(requestSignUpData)
+            call.enqueueUtil(
+                onSuccess = {
+                    simpleToast(it.message)
+                    finish()
+                },
+                onError = {
+                    simpleToast("회원가입 실패")
                 }
-
-                override fun onFailure(call: Call<ResponseSignUpData>, t: Throwable) {
-                    Toast.makeText(this@SignUpActivity, "회원가입 실패", Toast.LENGTH_SHORT).show()
-                }
-            })
-
-            finish()
+            )
         } else {
-            Toast.makeText(this, "이름/ID/PW를 확인해주세요.", Toast.LENGTH_SHORT).show()
+            simpleToast("이름/ID/PW를 확인해주세요")
         }
     }
 }
